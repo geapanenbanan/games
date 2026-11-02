@@ -36,9 +36,15 @@ async function renderShelf() {
       return;
     }
     for (const g of games) {
-      const row = el('a', { className: 'game-row', href: '/spel/?id=' + encodeURIComponent(g.id) }, [
-        el('div', {}, [el('h2', { textContent: g.title }), el('p', { textContent: g.tagline })]),
-        el('span', { className: 'status', textContent: statusText(g) })
+      const panel = el('div', { className: 'panel', 'aria-hidden': 'true' });
+      panel.innerHTML = '<div class="rays"></div><svg viewBox="0 0 32 32"><path d="M5 26 L16 5 L27 26 Z" fill="none" stroke="currentColor" stroke-width="3"/><path d="M16 15 L21 25 L11 25 Z" fill="currentColor"/></svg>';
+      const row = el('a', { className: 'game-card', href: '/spel/?id=' + encodeURIComponent(g.id) }, [
+        panel,
+        el('div', { className: 'body' }, [
+          el('h2', { textContent: g.title }),
+          el('p', { textContent: g.tagline }),
+          el('span', { className: 'status', textContent: statusText(g) })
+        ])
       ]);
       row.style.setProperty('--c', safeColor(g.color));
       shelf.append(el('li', {}, row));
@@ -67,6 +73,11 @@ async function renderGame() {
   document.title = g.title + ' – spel av geapanenbanan';
   document.documentElement.style.setProperty('--accent', safeColor(g.color));
   title.textContent = g.title;
+  if (g.version) {
+    const stamp = document.getElementById('stamp');
+    stamp.textContent = 'Testversion ' + g.version;
+    stamp.hidden = false;
+  }
   document.getElementById('tagline').textContent = g.tagline;
 
   const actions = document.getElementById('actions');

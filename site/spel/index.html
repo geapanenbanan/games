@@ -4,45 +4,47 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Spel av geapanenbanan</title>
+  <meta name="theme-color" content="#191C1D">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Big+Shoulders+Display:wght@700;800;900&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="/"><img src="/favicon.svg" alt="">geapanenbanan</a>
-      <a href="/">Alla spel</a>
+      <a class="brand" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26 L16 5 L27 26 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="miter"/><path d="M16 15 L21 25 L11 25 Z" fill="var(--accent)"/></svg>geapanenbanan</a>
+      <nav><a href="/">Alla spel</a></nav>
     </div>
   </header>
 
   <main id="game">
     <section class="hero">
-      <svg class="contours" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M520 60c90-20 210 20 240 100s-40 170-150 180-200-40-210-120 30-140 120-160z"/>
-        <path d="M535 95c70-12 160 18 180 80s-35 125-115 130-150-30-155-90 25-108 90-120z"/>
-        <path d="M555 130c48-6 110 14 122 56s-25 85-80 88-100-22-104-62 18-76 62-82z"/>
-        <path d="M578 165c26-3 60 8 66 30s-14 46-44 47-54-12-56-34 10-40 34-43z"/>
-        <path d="M-40 300c80-40 190-30 260 10s110 110 30 130-250 10-300-30-60-80 10-110z"/>
-        <path d="M-10 320c60-28 150-22 205 8s85 80 25 95-190 8-230-22-45-60 0-81z"/>
-        <path d="M20 342c40-18 105-14 145 6s58 52 18 62-130 5-158-14-30-40-5-54z"/>
-        <path d="M250 -20c40 30 30 80-10 100s-110 10-130-30 10-90 60-95 50 0 80 25z"/>
+      <div class="rays"></div>
+      <div class="wedge"></div>
+      <svg class="emblem" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="100" cy="100" r="92" fill="none" stroke="currentColor" stroke-width="10"/>
+        <circle cx="100" cy="100" r="74" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="4 7"/>
+        <path d="M100 34 L160 146 L40 146 Z" fill="currentColor"/>
+        <path d="M100 84 L128 136 L72 136 Z" fill="var(--ink)"/>
       </svg>
+      <div class="halftone"></div>
       <div class="wrap">
+        <div class="stamp" id="stamp" hidden></div>
         <h1 id="title">Laddar…</h1>
         <p class="tagline" id="tagline"></p>
         <div class="actions" id="actions"></div>
         <p class="meta" id="meta"></p>
       </div>
+      <div class="stripe"></div>
     </section>
 
     <div class="wrap content">
       <section>
         <h2>Om spelet</h2>
         <div id="description"></div>
-        <h2 style="margin-top:2rem">Nytt i den här versionen</h2>
+        <h2 class="gap">Nytt i den här versionen</h2>
         <ul class="changes" id="changes"></ul>
       </section>
 
@@ -55,7 +57,7 @@
           <li>Tryck på <strong>Installera</strong>. Om Google Play Protect varnar, välj <strong>Mer information</strong> och sedan <strong>Installera ändå</strong>.</li>
         </ol>
         <p class="note">Varningarna är normala för appar som inte kommer från Play Butik. För att uppdatera laddar du ner den nya versionen och installerar den över den gamla.</p>
-        <h2 style="margin-top:2rem">Hittat en bugg?</h2>
+        <h2 class="gap">Hittat en bugg?</h2>
         <p>Berätta vad du gjorde, vad som hände och vilken telefon du har. <a href="https://github.com/geapanenbanan/games/issues/new">Skapa en buggrapport på GitHub</a>.</p>
       </section>
     </div>

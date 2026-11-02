@@ -5,26 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Spel av geapanenbanan</title>
   <meta name="description" content="Spel som går att ladda ner och testa på mobilen.">
+  <meta name="theme-color" content="#191C1D">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Big+Shoulders+Display:wght@700;800;900&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <header class="site-header">
     <div class="wrap">
-      <a class="brand" href="/"><img src="/favicon.svg" alt="">geapanenbanan</a>
+      <a class="brand" href="/"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 26 L16 5 L27 26 Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="miter"/><path d="M16 15 L21 25 L11 25 Z" fill="var(--accent)"/></svg>geapanenbanan</a>
     </div>
   </header>
 
-  <main class="wrap">
+  <main>
     <section class="intro">
-      <h1>Spel att testa på mobilen</h1>
-      <p>Egna spel i olika stadier. Välj ett spel för att läsa mer och ladda ner den senaste testversionen.</p>
+      <div class="rays"></div>
+      <div class="intro-bar"></div>
+      <div class="wrap">
+        <h1>Spel att testa på mobilen</h1>
+        <p>Egna spel i olika stadier. Välj ett spel för att läsa mer och ladda ner den senaste testversionen.</p>
+      </div>
     </section>
 
-    <ul class="shelf" id="shelf" aria-live="polite"></ul>
+    <div class="wrap">
+      <ul class="shelf" id="shelf" aria-live="polite"></ul>
+    </div>
   </main>
 
   <footer class="site-footer">
