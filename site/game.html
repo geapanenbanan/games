@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spel av geapanenbanan</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="/favicon.svg" alt="">geapanenbanan</a>
+      <a href="/">Alla spel</a>
+    </div>
+  </header>
+
+  <main id="game">
+    <section class="hero">
+      <svg class="contours" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M520 60c90-20 210 20 240 100s-40 170-150 180-200-40-210-120 30-140 120-160z"/>
+        <path d="M535 95c70-12 160 18 180 80s-35 125-115 130-150-30-155-90 25-108 90-120z"/>
+        <path d="M555 130c48-6 110 14 122 56s-25 85-80 88-100-22-104-62 18-76 62-82z"/>
+        <path d="M578 165c26-3 60 8 66 30s-14 46-44 47-54-12-56-34 10-40 34-43z"/>
+        <path d="M-40 300c80-40 190-30 260 10s110 110 30 130-250 10-300-30-60-80 10-110z"/>
+        <path d="M-10 320c60-28 150-22 205 8s85 80 25 95-190 8-230-22-45-60 0-81z"/>
+        <path d="M20 342c40-18 105-14 145 6s58 52 18 62-130 5-158-14-30-40-5-54z"/>
+        <path d="M250 -20c40 30 30 80-10 100s-110 10-130-30 10-90 60-95 50 0 80 25z"/>
+      </svg>
+      <div class="wrap">
+        <h1 id="title">Laddar…</h1>
+        <p class="tagline" id="tagline"></p>
+        <div class="actions" id="actions"></div>
+        <p class="meta" id="meta"></p>
+      </div>
+    </section>
+
+    <div class="wrap content">
+      <section>
+        <h2>Om spelet</h2>
+        <div id="description"></div>
+        <h2 style="margin-top:2rem">Nytt i den här versionen</h2>
+        <ul class="changes" id="changes"></ul>
+      </section>
+
+      <section id="install">
+        <h2>Installera på Android</h2>
+        <ol class="steps">
+          <li>Tryck på <strong>Ladda ner</strong> på den här sidan med telefonen. Om webbläsaren varnar för filen, välj <strong>Ladda ner ändå</strong>.</li>
+          <li>Öppna filen när den har laddats ner, från notisen eller i appen Filer under Nedladdningar.</li>
+          <li>Första gången frågar telefonen om webbläsaren får installera appar. Slå på <strong>Tillåt från den här källan</strong> och gå tillbaka.</li>
+          <li>Tryck på <strong>Installera</strong>. Om Google Play Protect varnar, välj <strong>Mer information</strong> och sedan <strong>Installera ändå</strong>.</li>
+        </ol>
+        <p class="note">Varningarna är normala för appar som inte kommer från Play Butik. För att uppdatera laddar du ner den nya versionen och installerar den över den gamla.</p>
+        <h2 style="margin-top:2rem">Hittat en bugg?</h2>
+        <p>Berätta vad du gjorde, vad som hände och vilken telefon du har. <a href="https://github.com/geapanenbanan/games/issues/new">Skapa en buggrapport på GitHub</a>.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap"><a href="/">Tillbaka till alla spel</a></div>
+  </footer>
+
+  <script src="/app.js"></script>
+  <script>renderGame();</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spel av geapanenbanan</title>
+  <meta name="description" content="Spel som går att ladda ner och testa på mobilen.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Chakra+Petch:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/"><img src="/favicon.svg" alt="">geapanenbanan</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="intro">
+      <h1>Spel att testa på mobilen</h1>
+      <p>Egna spel i olika stadier. Välj ett spel för att läsa mer och ladda ner den senaste testversionen.</p>
+    </section>
+
+    <ul class="shelf" id="shelf" aria-live="polite"></ul>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">Hittar du en bugg? <a href="https://github.com/geapanenbanan/games/issues">Rapportera den på GitHub</a>.</div>
+  </footer>
+
+  <script src="/app.js"></script>
+  <script>renderShelf();</script>
+</body>
+</html>

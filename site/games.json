@@ -1,0 +1,23 @@
+[
+  {
+    "id": "crimson-apex",
+    "title": "Crimson Apex",
+    "color": "#B3203A",
+    "tagline": "Realtidsstrategi för mobilen, med sjöstrider och kristall att slåss om.",
+    "description": [
+      "Bygg bas, samla kristall och led dina enheter i strid – på land och till sjöss. Gjort för att spelas med tummarna, i matcher på 10–20 minuter.",
+      "Det här är en tidig testversion. Just nu finns kameran, enheter som går att välja och flytta, och strid mot en fiendegrupp. Fraktioner, basbygge och sjöstrider kommer i senare versioner."
+    ],
+    "status": "Tidig testversion",
+    "platforms": ["Android"],
+    "version": null,
+    "download": null,
+    "webPlay": null,
+    "changes": [
+      "Kamera som panorerar, zoomar och vrids med två fingrar",
+      "Dra med ett finger för att välja flera enheter",
+      "Enheter går i formation dit du trycker",
+      "Strid: tryck på en fiende för att anfalla"
+    ]
+  }
+]
