@@ -6,18 +6,19 @@
     "tagline": "Realtidsstrategi för mobilen, med sjöstrider och kristall att slåss om.",
     "description": [
       "Bygg bas, samla kristall och led dina enheter i strid – på land och till sjöss. Gjort för att spelas med tummarna, i matcher på 10–20 minuter.",
-      "Det här är en tidig testversion. Just nu finns kameran, enheter som går att välja och flytta, och strid mot en fiendegrupp. Fraktioner, basbygge och sjöstrider kommer i senare versioner."
+      "Det här är en tidig testversion. Just nu finns kameran, enheter som går att välja och flytta, strid mot en fiendegrupp, samt kristall som skördare samlar till ditt högkvarter. Fraktioner, basbygge och sjöstrider kommer i senare versioner."
     ],
     "status": "Tidig testversion",
     "platforms": ["Android"],
-    "version": null,
-    "download": null,
+    "version": "0.1.0",
+    "download": "https://github.com/geapanenbanan/games/releases/download/crimson-apex-v0.1.0/CrimsonApex-0.1.0.apk",
     "webPlay": null,
     "changes": [
       "Kamera som panorerar, zoomar och vrids med två fingrar",
-      "Dra med ett finger för att välja flera enheter",
+      "Tryck för att välja och flytta, dra med ett finger för markeringsruta",
       "Enheter går i formation dit du trycker",
-      "Strid: tryck på en fiende för att anfalla"
+      "Strid: tryck på en fiende för att anfalla, med hälsa, vapen och autoanfall",
+      "Kristall att samla, skördare som hittar nytt kristall själva, och ett högkvarter"
     ]
   }
 ]
