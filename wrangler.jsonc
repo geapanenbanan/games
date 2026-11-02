@@ -1,0 +1,8 @@
+// Cloudflare Workers: publicerar mappen site/ som en statisk webbsida.
+{
+  "name": "games",
+  "compatibility_date": "2025-10-01",
+  "assets": {
+    "directory": "./site"
+  }
+}

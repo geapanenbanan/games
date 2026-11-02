@@ -10,15 +10,15 @@ Repot innehåller bara webbsidan och spelens nedladdningsfiler (under **Releases
 
 ## Så fungerar sidan
 
-Allt ligger i `site/` och publiceras automatiskt med Cloudflare Pages när något pushas till `main`.
+Allt ligger i `site/` och publiceras automatiskt med Cloudflare Workers (inställningar i `wrangler.jsonc`) när något pushas till `main`.
 
 | Fil | Vad den gör |
 |---|---|
 | `site/games.json` | Listan över spel. Det enda som behöver ändras för att lägga till ett spel eller en version. |
 | `site/index.html` | Startsidan med alla spel |
-| `site/game.html` | Sidan för ett spel, visas på `/spel/<id>` |
+| `site/spel/index.html` | Sidan för ett spel, visas på `/spel/?id=<id>` |
 | `site/app.js`, `site/styles.css` | Logik och utseende |
-| `site/_redirects`, `site/_headers` | Inställningar för Cloudflare Pages |
+| `site/_headers` | Säkerhets- och cacheinställningar |
 
 ### Lägga till ett spel
 
@@ -40,7 +40,7 @@ Lägg till ett nytt objekt i `site/games.json`:
 }
 ```
 
-- `id` blir adressen: `/spel/mitt-spel`
+- `id` blir adressen: `/spel/?id=mitt-spel`
 - `color` är spelets färg (hex, sex tecken)
 - `download` och `webPlay` är `null` tills det finns något att ladda ner eller spela; då visas "Testversionen kommer snart"
 

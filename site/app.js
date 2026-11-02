@@ -36,7 +36,7 @@ async function renderShelf() {
       return;
     }
     for (const g of games) {
-      const row = el('a', { className: 'game-row', href: '/spel/' + encodeURIComponent(g.id) }, [
+      const row = el('a', { className: 'game-row', href: '/spel/?id=' + encodeURIComponent(g.id) }, [
         el('div', {}, [el('h2', { textContent: g.title }), el('p', { textContent: g.tagline })]),
         el('span', { className: 'status', textContent: statusText(g) })
       ]);
