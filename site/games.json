@@ -10,10 +10,11 @@
     ],
     "status": "Tidig testversion",
     "platforms": ["Android"],
-    "version": "0.1.0",
-    "download": "https://github.com/geapanenbanan/games/releases/download/crimson-apex-v0.1.0/CrimsonApex-0.1.0.apk",
+    "version": "0.1.1",
+    "download": "https://github.com/geapanenbanan/games/releases/download/crimson-apex-v0.1.1/CrimsonApex-0.1.1.apk",
     "webPlay": null,
     "changes": [
+      "Ny appikon",
       "Kamera som panorerar, zoomar och vrids med två fingrar",
       "Tryck för att välja och flytta, dra med ett finger för markeringsruta",
       "Enheter går i formation dit du trycker",
