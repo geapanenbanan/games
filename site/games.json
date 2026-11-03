@@ -6,18 +6,21 @@
     "tagline": "Realtidsstrategi för mobilen, med sjöstrider och kristall att slåss om.",
     "description": [
       "Bygg bas, samla kristall och led dina enheter i strid – på land och till sjöss. Gjort för att spelas med tummarna, i matcher på 10–20 minuter.",
-      "Det här är en tidig testversion. Just nu finns basbygge med kraftverk och fabrik, kristall i gruvor som skördare samlar, en AI-motståndare med tre svårighetsgrader, krigets dimma, minikarta och vinst eller förlust när alla byggnader är förstörda. Grafiken är fortfarande tillfällig. Fraktioner och sjöstrider kommer i senare versioner."
+      "Det här är en tidig testversion. Just nu finns basbygge med kraftverk och fabrik, kristall i gruvor som skördare samlar, en AI-motståndare med tre svårighetsgrader, krigets dimma, minikarta och vinst eller förlust när alla byggnader är förstörda. Havet, marken och gruvorna har fått sin riktiga grafik, men enheter och byggnader är fortfarande tillfälliga. Fraktioner och sjöstrider kommer i senare versioner."
     ],
     "status": "Tidig testversion",
-    "platforms": ["Android"],
-    "version": "0.2.0",
-    "download": "https://github.com/geapanenbanan/games/releases/download/crimson-apex-v0.2.0/CrimsonApex-0.2.0.apk",
+    "platforms": [
+      "Android"
+    ],
+    "version": "0.3.0",
+    "download": "https://github.com/geapanenbanan/games/releases/download/crimson-apex-v0.3.0/CrimsonApex-0.3.0.apk",
     "webPlay": null,
     "changes": [
-      "Nytt gränssnitt med en list högst upp",
-      "Utfällbara menyer för byggnader och trupper",
-      "Mindre minikarta",
-      "Grafiken är fortfarande tillfällig"
+      "Nytt hav med vågor, skum och slipade stenar",
+      "Ny mark med mossa, gräs och snö",
+      "Nya gruvor med torn och glödande kristaller",
+      "Rusch-mätaren hamnar inte längre bakom övre listen",
+      "Mjukare kant på krigets dimma"
     ]
   }
 ]
