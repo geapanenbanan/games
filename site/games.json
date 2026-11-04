@@ -6,21 +6,24 @@
     "tagline": "Realtidsstrategi för mobilen, med sjöstrider och kristall att slåss om.",
     "description": [
       "Bygg bas, samla kristall och led dina enheter i strid – på land och till sjöss. Gjort för att spelas med tummarna, i matcher på 10–20 minuter.",
-      "Det här är en tidig testversion. Just nu finns basbygge med kraftverk och fabrik, kristall i gruvor som skördare samlar, en AI-motståndare med tre svårighetsgrader, krigets dimma, minikarta och vinst eller förlust när alla byggnader är förstörda. Havet, marken och gruvorna har fått sin riktiga grafik, men enheter och byggnader är fortfarande tillfälliga. Fraktioner och sjöstrider kommer i senare versioner."
+      "Det här är en tidig testversion. Just nu finns startmeny med tre svårighetsgrader, basbygge med kraftverk och fabrik, kristall i gruvor som skördare samlar, en AI-motståndare, krigets dimma, minikarta och en vinst- eller förlustskärm när alla byggnader på ena sidan är förstörda. Havet, marken, gruvorna, enheterna och byggnaderna har fått sin riktiga grafik, med skott, explosioner och rök. Fraktioner och sjöstrider kommer i senare versioner."
     ],
     "status": "Tidig testversion",
     "platforms": [
       "Android"
     ],
-    "version": "0.3.0",
-    "download": "https://github.com/geapanenbanan/games/releases/download/crimson-apex-v0.3.0/CrimsonApex-0.3.0.apk",
+    "version": "0.4.0",
+    "download": "https://github.com/geapanenbanan/games/releases/download/crimson-apex-v0.4.0/CrimsonApex-0.4.0.apk",
     "webPlay": null,
     "changes": [
-      "Nytt hav med vågor, skum och slipade stenar",
-      "Ny mark med mossa, gräs och snö",
-      "Nya gruvor med torn och glödande kristaller",
-      "Rusch-mätaren hamnar inte längre bakom övre listen",
-      "Mjukare kant på krigets dimma"
+      "Effekter: skott, explosioner och rök",
+      "Riktiga enheter och byggnader med tydligare lagfärg",
+      "Tonade konturer och mjuka skuggor",
+      "Skarpare bild",
+      "Startmeny med svårighetsgrad Lätt, Normal och Svår",
+      "Vinst- och förlustskärm",
+      "Bättre prestanda i stora strider",
+      "Båda spelarna börjar nu med 400 kristall"
     ]
   }
 ]
