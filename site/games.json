@@ -12,18 +12,13 @@
     "platforms": [
       "Android"
     ],
-    "version": "0.4.0",
-    "download": "https://github.com/geapanenbanan/games/releases/download/crimson-apex-v0.4.0/CrimsonApex-0.4.0.apk",
+    "version": "0.4.1",
+    "download": "https://github.com/geapanenbanan/games/releases/download/crimson-apex-v0.4.1/CrimsonApex-0.4.1.apk",
     "webPlay": null,
     "changes": [
-      "Effekter: skott, explosioner och rök",
-      "Riktiga enheter och byggnader med tydligare lagfärg",
-      "Tonade konturer och mjuka skuggor",
-      "Skarpare bild",
-      "Startmeny med svårighetsgrad Lätt, Normal och Svår",
-      "Vinst- och förlustskärm",
-      "Bättre prestanda i stora strider",
-      "Båda spelarna börjar nu med 400 kristall"
+      "Rättat: huvudmenyn visades bara till hälften på vissa Android-telefoner",
+      "Ny knapp \"Säker grafik\" i huvudmenyn om bilden ser fel ut",
+      "Enklare kamera i huvudmenyn"
     ]
   }
 ]
