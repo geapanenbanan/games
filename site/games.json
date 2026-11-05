@@ -3,25 +3,24 @@
     "id": "crimson-apex",
     "title": "Crimson Apex",
     "color": "#B3203A",
-    "tagline": "Realtidsstrategi för mobilen, med sjöstrider och kristall att slåss om.",
+    "tagline": "Realtidsstrategi för mobilen: bygg bas, ta kristall och slåss om öar och landbroar.",
     "description": [
-      "Bygg bas, samla kristall och led dina enheter i strid – på land och till sjöss. Gjort för att spelas med tummarna, i matcher på 10–20 minuter.",
-      "Det här är en tidig testversion. Just nu finns startmeny med tre svårighetsgrader, basbygge med kraftverk och fabrik, kristall i gruvor som skördare kör in i och ut ur, en AI-motståndare, krigets dimma, trupper som man grupperar och styr som en enhet, minikarta och en vinst- eller förlustskärm när alla byggnader på ena sidan är förstörda. Havet, marken, gruvorna, enheterna och byggnaderna har fått sin riktiga grafik, med detaljerade byggnader, skott, explosioner och rök. Fraktioner och sjöstrider kommer i senare versioner."
+      "Bygg bas, samla kristall och led dina trupper i strid om öar och landbroar. Gjort för att spelas med tummarna, i matcher på 10–20 minuter.",
+      "Det här är en tidig testversion. Just nu finns startmeny med tre svårighetsgrader och val av karta, basbygge med kraftverk och fabrik, kristall i gruvor, krigets dimma, minikarta och en AI-motståndare, samt en vinst- eller förlustskärm när alla byggnader på ena sidan är förstörda."
     ],
     "status": "Tidig testversion",
     "platforms": [
       "Android"
     ],
-    "version": "0.6.0",
-    "download": "https://github.com/geapanenbanan/games/releases/download/crimson-apex-v0.6.0/CrimsonApex-0.6.0.apk",
+    "version": "0.7.0",
+    "download": "https://github.com/geapanenbanan/games/releases/download/crimson-apex-v0.7.0/CrimsonApex-0.7.0.apk",
     "webPlay": null,
     "changes": [
-      "Ny grafikstil: renare ytor, ljusare mark, mjukare skog och tydligare färger",
-      "Nytt: trupper. Gruppera flera stridsenheter så går de som en enhet, och dela dem när du vill",
-      "Stenar, träd och gruvor är hinder, så enheter går runt dem",
-      "Hälsostaplar syns bara för skadade och markerade enheter",
-      "Lagfärgsringar, slitage på enheter och byggnader, närmare zoom",
-      "Dimman har nya färger och en ljus kantlinje"
+      "Ny karta: Karta B med fyra öar och en mittö, landbroar, höjder med ramper och ett oändligt hav. Startplatsen slumpas",
+      "Fler gruvor och expansioner, nya rika gruvor i mitten",
+      "Gamla kartan finns kvar i menyvalet \"Karta\"",
+      "Kvadratisk minikarta",
+      "Känt: AI:n är inte inställd för den större kartan än"
     ]
   }
 ]
