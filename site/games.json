@@ -6,7 +6,7 @@
     "tagline": "Realtidsstrategi för mobilen, med sjöstrider och kristall att slåss om.",
     "description": [
       "Bygg bas, samla kristall och led dina enheter i strid – på land och till sjöss. Gjort för att spelas med tummarna, i matcher på 10–20 minuter.",
-      "Det här är en tidig testversion. Just nu finns startmeny med tre svårighetsgrader, basbygge med kraftverk och fabrik, kristall i gruvor som skördare kör in i och ut ur, en AI-motståndare, krigets dimma, minikarta och en vinst- eller förlustskärm när alla byggnader på ena sidan är förstörda. Havet, marken, gruvorna, enheterna och byggnaderna har fått sin riktiga grafik, med detaljerade byggnader, skott, explosioner och rök. Fraktioner och sjöstrider kommer i senare versioner."
+      "Det här är en tidig testversion. Just nu finns startmeny med tre svårighetsgrader, basbygge med kraftverk och fabrik, kristall i gruvor som skördare kör in i och ut ur, en AI-motståndare, krigets dimma, trupper som man grupperar och styr som en enhet, minikarta och en vinst- eller förlustskärm när alla byggnader på ena sidan är förstörda. Havet, marken, gruvorna, enheterna och byggnaderna har fått sin riktiga grafik, med detaljerade byggnader, skott, explosioner och rök. Fraktioner och sjöstrider kommer i senare versioner."
     ],
     "status": "Tidig testversion",
     "platforms": [
@@ -16,11 +16,12 @@
     "download": "https://github.com/geapanenbanan/games/releases/download/crimson-apex-v0.6.0/CrimsonApex-0.6.0.apk",
     "webPlay": null,
     "changes": [
-      "Ny grafikstil med renare ytor och tydligare markfärger",
-      "Mjukare dimkant, och havet och skogen utanför kartan syns",
-      "Enheter går runt träd, stenar och gruvor",
-      "Hälsostaplar visas bara över skadade och markerade enheter",
-      "Lagfärgsringar, slitage på enheter och byggnader, närmare zoom"
+      "Ny grafikstil: renare ytor, ljusare mark, mjukare skog och tydligare färger",
+      "Nytt: trupper. Gruppera flera stridsenheter så går de som en enhet, och dela dem när du vill",
+      "Stenar, träd och gruvor är hinder, så enheter går runt dem",
+      "Hälsostaplar syns bara för skadade och markerade enheter",
+      "Lagfärgsringar, slitage på enheter och byggnader, närmare zoom",
+      "Dimman har nya färger och en ljus kantlinje"
     ]
   }
 ]
