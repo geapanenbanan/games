@@ -6,21 +6,26 @@
     "tagline": "Realtidsstrategi för mobilen: bygg bas, ta kristall och slåss om öar och landbroar.",
     "description": [
       "Bygg bas, samla kristall och led dina trupper i strid om öar och landbroar. Gjort för att spelas med tummarna, i matcher på 10–20 minuter.",
-      "Det här är en tidig testversion. Just nu finns startmeny med tre svårighetsgrader och val av karta, basbygge med kraftverk och fabrik, kristall i gruvor, krigets dimma, minikarta och en AI-motståndare, samt en vinst- eller förlustskärm när alla byggnader på ena sidan är förstörda."
+      "Det här är en tidig testversion. Just nu finns startmeny med tre svårighetsgrader och val av startö på en stor karta med fyra öar, basbygge med kraftverk, fabrik och skördarstationer som kan uppgraderas till nivå 5, kristall i gruvor, krigets dimma, minikarta och en AI-motståndare, samt en vinst- eller förlustskärm när alla byggnader på ena sidan är förstörda."
     ],
     "status": "Tidig testversion",
     "platforms": [
       "Android"
     ],
-    "version": "0.7.0",
-    "download": "https://github.com/geapanenbanan/games/releases/download/crimson-apex-v0.7.0/CrimsonApex-0.7.0.apk",
+    "version": "0.9.0",
+    "download": "https://github.com/geapanenbanan/games/releases/download/crimson-apex-v0.9.0/CrimsonApex-0.9.0.apk",
     "webPlay": null,
     "changes": [
-      "Ny karta: Karta B med fyra öar och en mittö, landbroar, höjder med ramper och ett oändligt hav. Startplatsen slumpas",
-      "Fler gruvor och expansioner, nya rika gruvor i mitten",
-      "Gamla kartan finns kvar i menyvalet \"Karta\"",
-      "Kvadratisk minikarta",
-      "Känt: AI:n är inte inställd för den större kartan än"
-    ]
+      "Ny, mycket större Karta B: fyra öar och en mittö med broar, havet fortsätter hela vägen runt, du väljer själv startö (eller slumpad)",
+      "Uppgraderingar: bygg en av varje byggnad och uppgradera dem upp till nivå 5. Kraftverk ger mer energi och fabriken tillverkar snabbare",
+      "Skördarstationer vid gruvorna, med gratis skördare och två skördare per nivå",
+      "Nya träd: palmer, runda träd och buskar i stället för granar. Glesare, tydligare och billigare att rita",
+      "Helt nya enheter: stridsvagn med jättekanon, spanare med stora hjul och skördare med skopa och kristaller. Enkla modeller på långt håll",
+      "Trupper: grupper fastnar inte längre i träd och stenar",
+      "Ny mätare: tryck med fyra fingrar (eller F3 på dator) för att visa trianglar, ritanrop och fps",
+      "Känt: inget sjöstrid än, AI:ns tider är inte finjusterade för stora kartan, och balansen på uppgraderingarna är gissad. Berätta gärna hur fps och värme är i stora strider!"
+    ],
+    "versionCode": 40,
+    "size": 35601739
   }
 ]
