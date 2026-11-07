@@ -32,20 +32,22 @@
     "id": "snake-kerstin",
     "title": "Snake – Kerstin edition",
     "color": "#FF5D8F",
-    "tagline": "Klassiska Snake med drottning Kerstin och en kedja av fluffiga små kompisar.",
+    "tagline": "Klassiska Snake i kvällsljus. Ät, väx och håll huvudet kallt när tempot ökar.",
     "description": [
-      "Styr drottning Kerstin genom att svepa på skärmen. Varje godis hon äter ger en ny fluffis i kedjan, och kedjan går snabbare ju längre den blir. Krocka inte med kanten eller dig själv!",
+      "Styr Kerstin genom att svepa på skärmen. Varje godis förlänger kedjan och höjer tempot. Krocka inte med kanten eller dig själv.",
       "Ät flera godisar snabbt efter varandra för kombo och dubbla poäng, och håll utkik efter Doktor Smul som flyger förbi i sitt tefat och tappar guldstjärnor värda 50 poäng. Dina fem bästa resultat sparas i telefonen. Spelas direkt i webbläsaren, inget att installera."
     ],
     "status": "Klart att spela",
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "1.0",
+    "version": "1.1",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/snake-kerstin/",
     "changes": [
-      "Första versionen: svepstyrning (och piltangenter på dator), kombo, bonusstjärnor från Doktor Smul, ljud och topp 5-lista som sparas"
+      "Ny stil: kvällsljus, djupare färger och mörka menyer",
+      "Stramare texter och nytt typsnitt",
+      "Svepstyrning (piltangenter på dator), kombo, bonusstjärnor och topp 5 som sparas"
     ]
   }
 ]
