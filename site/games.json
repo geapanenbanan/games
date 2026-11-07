@@ -27,5 +27,25 @@
     ],
     "versionCode": 40,
     "size": 35601739
+  },
+  {
+    "id": "snake-kerstin",
+    "title": "Snake – Kerstin edition",
+    "color": "#FF5D8F",
+    "tagline": "Klassiska Snake med drottning Kerstin och en kedja av fluffiga små kompisar.",
+    "description": [
+      "Styr drottning Kerstin genom att svepa på skärmen. Varje godis hon äter ger en ny fluffis i kedjan, och kedjan går snabbare ju längre den blir. Krocka inte med kanten eller dig själv!",
+      "Ät flera godisar snabbt efter varandra för kombo och dubbla poäng, och håll utkik efter Doktor Smul som flyger förbi i sitt tefat och tappar guldstjärnor värda 50 poäng. Dina fem bästa resultat sparas i telefonen. Spelas direkt i webbläsaren, inget att installera."
+    ],
+    "status": "Klart att spela",
+    "platforms": [
+      "Webbläsare (mobil och dator)"
+    ],
+    "version": "1.0",
+    "download": null,
+    "webPlay": "https://games.geapanenbanan.com/play/snake-kerstin/",
+    "changes": [
+      "Första versionen: svepstyrning (och piltangenter på dator), kombo, bonusstjärnor från Doktor Smul, ljud och topp 5-lista som sparas"
+    ]
   }
 ]

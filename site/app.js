@@ -85,6 +85,7 @@ async function renderGame() {
   const web = safeUrl(g.webPlay);
   if (download) actions.append(el('a', { className: 'btn', href: download, textContent: 'Ladda ner för Android' }));
   if (web) actions.append(el('a', { className: download ? 'btn ghost' : 'btn', href: web, textContent: 'Spela i webbläsaren' }));
+  if (!download) { const ai = document.getElementById('android-install'); if (ai) ai.hidden = true; }
   if (!download && !web) actions.append(el('span', { className: 'soon', textContent: 'Testversionen kommer snart' }));
 
   const meta = [statusText(g), (g.platforms || []).join(' och ')].filter(Boolean).join(' för ');
