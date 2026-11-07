@@ -41,12 +41,12 @@
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "1.1",
+    "version": "1.2",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/snake-kerstin/",
     "changes": [
-      "Ny stil: kvällsljus, djupare färger och mörka menyer",
-      "Stramare texter och nytt typsnitt",
+      "Fyra utseenden att välja mellan i menyn: Fluff, Rallyt (bil med släpvagnar), Djurparaden och Robotarna. Valet sparas",
+      "Kvällsljus, djupare färger och mörka menyer",
       "Svepstyrning (piltangenter på dator), kombo, bonusstjärnor och topp 5 som sparas"
     ]
   }
