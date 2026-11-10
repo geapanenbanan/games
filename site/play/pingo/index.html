@@ -9,45 +9,109 @@
 <title>Pingo Flyger</title>
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
-  html,body{margin:0;height:100%;background:#0b1a33;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
-  canvas{display:block;width:100vw;height:100vh;height:100dvh}
-  #nm{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;background:rgba(10,8,30,.45);font-family:'Rubik',system-ui,sans-serif;z-index:3}
-  #nm[hidden],#chg[hidden]{display:none}
-  #nm form{background:rgba(22,18,48,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:22px 22px 18px;max-width:340px;width:100%;box-sizing:border-box;box-shadow:0 24px 60px rgba(0,0,0,.45);color:#e9e6ff;text-align:center;animation:pop .35s cubic-bezier(.2,1.15,.4,1)}
+  html,body{margin:0;height:100%;background:#0b1a33;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;font-family:'Rubik',system-ui,sans-serif}
+  canvas#c{display:block;width:100vw;height:100vh;height:100dvh}
+  [hidden]{display:none!important}
+  .ov{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;background:rgba(10,8,30,.45);z-index:3;overflow-y:auto}
+  .card{background:rgba(22,18,48,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:22px 20px 18px;max-width:340px;width:100%;box-sizing:border-box;box-shadow:0 24px 60px rgba(0,0,0,.45);color:#e9e6ff;text-align:center;animation:pop .35s cubic-bezier(.2,1.15,.4,1);margin:auto}
   @keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
+  h1{margin:0 0 4px;font-weight:900;font-size:34px;letter-spacing:1px;color:#bff0ff}
+  .who{margin:0 0 14px;font-size:14px;opacity:.8}
+  .who a{color:#ffd56b;text-decoration:underline;cursor:pointer;margin-left:4px}
+  .btn{display:block;width:100%;border:0;font-family:inherit;font-weight:700;font-size:19px;letter-spacing:2px;text-transform:uppercase;padding:13px 20px;border-radius:14px;background:linear-gradient(#ffd56b,#f0a62a);color:#2a1440;box-shadow:0 4px 0 #9c5f0c,0 10px 20px rgba(0,0,0,.3);margin:10px 0 4px;cursor:pointer}
+  .btn:active{transform:translateY(3px);box-shadow:0 1px 0 #9c5f0c}
+  .btn.alt{background:linear-gradient(#8fe0ff,#3aa6e0);color:#0b1a33;box-shadow:0 4px 0 #1d5f86,0 10px 20px rgba(0,0,0,.3)}
+  .btn.alt:active{box-shadow:0 1px 0 #1d5f86}
+  .small{font-size:13px;opacity:.75;margin:4px 0 0}
+  .sec{margin:16px 0 8px;font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:.6;font-weight:700}
+  .medals{display:flex;justify-content:center;gap:10px}
+  .medal{width:44px;text-align:center;font-size:11px;opacity:.9}
+  .medal i{display:block;width:30px;height:30px;margin:0 auto 3px;border-radius:50%;border:3px solid rgba(255,255,255,.35);box-sizing:border-box}
+  .medal.off{opacity:.3}
+  .skins{display:flex;flex-wrap:wrap;justify-content:center;gap:5px}
+  .skin{width:53px;padding:4px 0 5px;border-radius:12px;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#e9e6ff;font:500 11px 'Rubik',sans-serif;cursor:pointer}
+  .skin canvas{display:block;width:40px;height:40px;margin:0 auto}
+  .skin.on{border-color:#ffd56b;background:rgba(255,213,107,.15)}
+  .skin:disabled{opacity:.45;cursor:default}
   #nm label{display:block;font-weight:900;font-size:24px;margin-bottom:14px;color:#bff0ff}
   #nm input{width:100%;box-sizing:border-box;font:500 18px 'Rubik',system-ui,sans-serif;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;text-align:center;outline:none;-webkit-user-select:text;user-select:text}
   #nm input:focus{border-color:#9fd8ff}
-  #nm button{border:0;font-family:inherit;font-weight:700;font-size:19px;letter-spacing:2px;text-transform:uppercase;padding:13px 38px;border-radius:14px;background:linear-gradient(#ffd56b,#f0a62a);color:#2a1440;box-shadow:0 4px 0 #9c5f0c,0 10px 20px rgba(0,0,0,.3);margin:16px 4px 2px;cursor:pointer}
-  #nm button:active{transform:translateY(3px);box-shadow:0 1px 0 #9c5f0c}
-  #chg{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:12px;z-index:2;font:700 13px 'Rubik',system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase;color:#fff;background:rgba(15,12,35,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 16px;cursor:pointer}
+  #mbtn{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:12px;z-index:2;font:700 13px 'Rubik',system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase;color:#fff;background:rgba(15,12,35,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 16px;cursor:pointer}
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
-<button id="chg" hidden>Byt namn</button>
-<div id="nm" hidden><form><label for="nmi">Vad heter du?</label><input id="nmi" maxlength="16" autocomplete="nickname" enterkeyhint="go" required><button>Spela</button></form></div>
+<button id="mbtn" hidden>Meny</button>
+
+<div id="menu" class="ov" hidden><div class="card">
+  <h1>PINGO FLYGER</h1>
+  <p class="who" id="who"></p>
+  <button class="btn" id="bClassic">Spela</button>
+  <button class="btn alt" id="bDaily">Dagens bana</button>
+  <p class="small" id="dailyInfo"></p>
+  <div class="sec">Medaljer</div>
+  <div class="medals" id="medals"></div>
+  <div class="sec">Pingviner</div>
+  <div class="skins" id="skins"></div>
+</div></div>
+
+<div id="nm" class="ov" hidden><form class="card"><label for="nmi">Vad heter du?</label><input id="nmi" maxlength="16" autocomplete="nickname" enterkeyhint="go" required><button class="btn">Spela</button></form></div>
+
 <script>
 (() => {
-// ---------- topplista ----------
-const API_URL = 'https://api.rostyfrosty.com/v1/scores/pingo/classic';
+// ---------- konfiguration ----------
+const API_BASE = 'https://api.rostyfrosty.com/v1/scores/pingo/';
 const API_KEY = 'rf_2125d8b939ebf3df2df398b973586290afee02779224edf8';
+const TODAY = new Date().toLocaleDateString('sv-SE');           // ÅÅÅÅ-MM-DD
+const MEDALS = [
+  { n: 'Brons',   s: 10,  c: '#cd7f32' },
+  { n: 'Silver',  s: 25,  c: '#d5dee6' },
+  { n: 'Guld',    s: 50,  c: '#ffd23f' },
+  { n: 'Platina', s: 100, c: '#a6f6ff' }
+];
+const SKINS = [
+  { id: 'klassisk', n: 'Klassisk', need: 0 },
+  { id: 'tomte',    n: 'Tomte',    need: 10 },
+  { id: 'cool',     n: 'Cool',     need: 25 },
+  { id: 'guld',     n: 'Guld',     need: 50 },
+  { id: 'kosmos',   n: 'Kosmos',   need: 100 }
+];
+const NEAR = 9;                 // px marginal för "Nära ögat!"
+const SKY_AT = [0, 15, 30, 50, 75];
+const PAL = [ // skymning, kväll, natt, norrsken, polarstorm
+  { a:'#2a2350', b:'#7a4b7e', c:'#e8a07e', aur:.05, star:0,   moon:1, hill:'#e9d3df' },
+  { a:'#0b1a33', b:'#24457a', c:'#5a86b8', aur:.18, star:.4,  moon:1, hill:'#c9e4f7' },
+  { a:'#040918', b:'#0f2247', c:'#2c4f80', aur:.28, star:1,   moon:1, hill:'#a9c9e6' },
+  { a:'#02101a', b:'#0a3540', c:'#1f6170', aur:.6,  star:1,   moon:.7, hill:'#a6e0dc' },
+  { a:'#130b24', b:'#2b2048', c:'#66658a', aur:.2,  star:.2,  moon:0, hill:'#d6d8e8' }
+];
 
+// ---------- lagring ----------
+const ls = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v === null ? d : v; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
+};
+let playerName = ls.get('pingo_name', '');
+let maxEver = Math.max(+ls.get('pingo_max', 0) || 0, +ls.get('pingo_best', 0) || 0);
+let skin = ls.get('pingo_skin', 'klassisk');
+if (!SKINS.some(s => s.id === skin && s.need <= maxEver)) skin = 'klassisk';
+function bestKey(){ return mode === 'daily' ? 'pingo_daily_' + TODAY : 'pingo_best'; }
+
+// ---------- canvas ----------
 const cv = document.getElementById('c'), ctx = cv.getContext('2d');
 const VH = 640, GROUND = 70;
 let W = 360, S = 1, dpr = 1;
-
 function resize(){
   dpr = Math.min(window.devicePixelRatio || 1, 2);
   const h = cv.clientHeight || innerHeight, w = cv.clientWidth || innerWidth;
   S = h / VH; W = w / S;
   cv.width = w * dpr; cv.height = h * dpr;
   ctx.setTransform(S*dpr,0,0,S*dpr,0,0);
-  if (state === 'ready') bird.x = W * 0.3;
+  if (state !== 'play' && state !== 'dead') bird.x = W * 0.3;
 }
 addEventListener('resize', resize);
 
-// ---------- ljud ----------
+// ---------- ljud & vibration ----------
 let ac = null;
 function beep(f, d, type='square', v=0.06, slide=0){
   try{
@@ -59,34 +123,24 @@ function beep(f, d, type='square', v=0.06, slide=0){
     o.connect(g).connect(ac.destination); o.start(t); o.stop(t + d);
   }catch(e){}
 }
+function buzz(p){ try{ navigator.vibrate && navigator.vibrate(p); }catch(e){} }
 
-// ---------- lokalt rekord & namn ----------
-let best = 0, playerName = '';
-try{ best = +localStorage.getItem('pingo_best') || 0; playerName = localStorage.getItem('pingo_name') || ''; }catch(e){}
-function saveBest(){ try{ localStorage.setItem('pingo_best', best); }catch(e){} }
+// ---------- slump (seedad för dagens bana) ----------
+function mulberry32(a){ return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+let rng = Math.random;
 
-const nm = document.getElementById('nm'), nmi = document.getElementById('nmi'), chg = document.getElementById('chg');
-function askName(){ nmi.value = playerName; nm.hidden = false; chg.hidden = true; setTimeout(() => nmi.focus(), 50); }
-nm.querySelector('form').addEventListener('submit', e => {
-  e.preventDefault();
-  const v = nmi.value.trim().replace(/\s+/g, ' ').slice(0, 16);
-  if (!v) return;
-  playerName = v;
-  try{ localStorage.setItem('pingo_name', v); }catch(e){}
-  nm.hidden = true; nmi.blur();
-  if (state === 'ready') chg.hidden = false;
-});
-chg.addEventListener('click', askName);
-
-// ---------- online-topplista ----------
-let top = [], topState = 'idle', rankMsg = '', lastRank = 0;
+// ---------- topplista ----------
+let top = [], topState = 'idle', rankMsg = '', lastRank = 0, topBoard = '';
+function board(){ return mode === 'daily' ? 'daily-' + TODAY : 'classic'; }
 async function loadTop(){
-  topState = 'loading';
+  const b = board(); topState = 'loading'; if (b !== topBoard){ top = []; topBoard = b; }
   try{
-    const r = await fetch(API_URL + '?limit=10');
+    const r = await fetch(API_BASE + b + '?limit=10');
+    if (r.status === 404){ top = []; topState = 'ok'; return; }
     if (!r.ok) throw 0;
     const j = await r.json();
     const list = Array.isArray(j) ? j : (j.scores || j.entries || j.items || []);
+    if (b !== board()) return;
     top = list.slice(0, 10).map(e => ({ player: String(e.player ?? e.name ?? '?'), score: +e.score || 0 }));
     topState = 'ok';
   }catch(e){ topState = 'error'; }
@@ -94,7 +148,7 @@ async function loadTop(){
 async function submitScore(s){
   lastRank = 0; rankMsg = 'Skickar poäng…';
   try{
-    const r = await fetch(API_URL, {
+    const r = await fetch(API_BASE + board(), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'X-Api-Key': API_KEY },
       body: JSON.stringify({ player: playerName, score: s }),
@@ -109,46 +163,67 @@ async function submitScore(s){
 }
 
 // ---------- spelvärld ----------
-let state = 'ready', score = 0, t = 0, deadT = 0, flash = 0, shake = 0;
+let state = 'menu', mode = 'classic', score = 0, passed = 0, best = 0;
+let t = 0, runT = 0, deadT = 0, flash = 0, shake = 0, skyF = 0, unlockMsg = '', medalAt = -1;
 const bird = { x: 100, y: VH*0.42, vy: 0, r: 17, wing: 0 };
-let pipes = [], spawnT = 0, particles = [], groundX = 0;
-const flakes = Array.from({length: 60}, () => ({ x: Math.random()*2000, y: Math.random()*VH, r: Math.random()*2+0.6, s: Math.random()*20+10 }));
+let pipes = [], fish = [], pops = [], spawnT = 0, particles = [], groundX = 0;
+const flakes = Array.from({length: 70}, () => ({ x: Math.random()*2000, y: Math.random()*VH, r: Math.random()*2+0.6, s: Math.random()*20+10 }));
+const stars = Array.from({length: 50}, () => ({ x: Math.random(), y: Math.random()*0.55, r: Math.random()*1.3+0.4, p: Math.random()*6 }));
 const hills = Array.from({length: 12}, (_, i) => ({ x: i*160, h: 60 + Math.random()*80 }));
 
-function difficulty(){ return Math.min(score / 40, 1); }
+function difficulty(){ return Math.min(passed / 40, 1); }
 function speed(){ return 165 + 85*difficulty(); }
 function gap(){ return 175 - 40*difficulty(); }
+function interval(){ return 1.55 - 0.3*difficulty(); }
+function medalFor(s){ let m = -1; MEDALS.forEach((x, i) => { if (s >= x.s) m = i; }); return m; }
 
 function reset(){
-  state = 'ready'; score = 0; pipes = []; spawnT = 0; particles = []; rankMsg = '';
+  state = 'ready'; score = 0; passed = 0; runT = 0; pipes = []; fish = []; pops = []; particles = [];
+  spawnT = 0; rankMsg = ''; unlockMsg = ''; lastRank = 0; medalAt = -1;
+  rng = mode === 'daily' ? mulberry32(+TODAY.replace(/-/g, '')) : Math.random;
+  best = +ls.get(bestKey(), 0) || 0;
   bird.x = W*0.3; bird.y = VH*0.42; bird.vy = 0;
-  if (playerName) chg.hidden = false;
 }
 
+function pop(txt, x, y, c='#fff', size=20){ pops.push({ txt, x, y, c, size, life: 1.1 }); }
+
 function flap(){
-  if (!nm.hidden) return;
-  if (state === 'ready'){
-    if (!playerName){ askName(); return; }
-    state = 'play'; chg.hidden = true;
-  }
+  if (state === 'ready'){ state = 'play'; mbtn.hidden = true; }
   if (state === 'play'){
     bird.vy = -470; bird.wing = 1;
     beep(520, 0.09, 'square', 0.04, 760);
     for (let i=0;i<5;i++) particles.push({x:bird.x-12,y:bird.y+6,vx:-60-Math.random()*80,vy:(Math.random()-0.3)*80,life:0.5,c:'#e8f6ff'});
-  } else if (state === 'dead' && deadT > 0.8){
-    reset();
+  } else if (state === 'dead' && deadT > 0.35){
+    reset(); mbtn.hidden = false;
   }
 }
 
 function die(){
   if (state !== 'play') return;
   state = 'dead'; deadT = 0; flash = 1; shake = 12;
-  beep(220, 0.35, 'sawtooth', 0.07, 60);
-  if (score > best){ best = score; saveBest(); }
+  beep(220, 0.35, 'sawtooth', 0.07, 60); buzz([60, 40, 90]);
+  if (score > best){ best = score; ls.set(bestKey(), best); }
+  if (score > maxEver){
+    const fresh = SKINS.filter(s => s.need > maxEver && s.need <= score);
+    maxEver = score; ls.set('pingo_max', maxEver);
+    if (fresh.length) unlockMsg = 'Ny pingvin: ' + fresh.map(s => s.n).join(', ') + '!';
+  }
   if (score > 0 && playerName) submitScore(score); else loadTop();
+  mbtn.hidden = false;
   for (let i=0;i<24;i++){
     const a = Math.random()*Math.PI*2, v = 80+Math.random()*220;
     particles.push({x:bird.x,y:bird.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:0.9,c:i%3?'#ffffff':'#9fd8ff'});
+  }
+}
+
+function addScore(n){
+  const before = medalFor(score);
+  score += n;
+  const after = medalFor(score);
+  if (after > before){
+    const m = MEDALS[after];
+    pop(m.n + 'medalj!', W/2, 150, m.c, 26); medalAt = after;
+    beep(660, 0.12, 'triangle', 0.06); setTimeout(()=>beep(990,0.12,'triangle',0.06),110); setTimeout(()=>beep(1320,0.2,'triangle',0.06),220);
   }
 }
 
@@ -157,40 +232,73 @@ function hitRect(cx, cy, r, x, y, w, h){
   const dx = cx-nx, dy = cy-ny; return dx*dx + dy*dy < r*r;
 }
 
+function stageFor(n){ let s = 0; SKY_AT.forEach((v, i) => { if (n >= v) s = i; }); return s; }
+
 function update(dt){
   t += dt;
   flash = Math.max(0, flash - dt*3);
   shake = Math.max(0, shake - dt*40);
   bird.wing = Math.max(0, bird.wing - dt*5);
+  const target = (state === 'play' || state === 'dead') ? stageFor(passed) : 1;
+  skyF += Math.sign(target - skyF) * Math.min(Math.abs(target - skyF), dt*0.6);
+  const storm = Math.max(0, skyF - 3);
   const sp = state === 'dead' ? 0 : speed();
   groundX = (groundX + sp*dt) % 48;
-  for (const f of flakes){ f.y += f.s*dt; f.x -= (sp*0.1 + 8)*dt; if (f.y > VH){ f.y = -5; } if (f.x < -10) f.x += W+20; }
+  for (const f of flakes){
+    f.y += f.s*(1 + storm*2.5)*dt; f.x -= (sp*0.1 + 8 + storm*120)*dt;
+    if (f.y > VH){ f.y = -5; } if (f.x < -10) f.x += W+20;
+  }
   for (const h of hills){ h.x -= sp*0.2*dt; if (h.x < -200) h.x += 12*160; }
 
-  if (state === 'ready'){
+  if (state === 'ready' || state === 'menu'){
     bird.y = VH*0.42 + Math.sin(t*3)*10;
     if (Math.sin(t*6) > 0.9) bird.wing = 0.6;
   } else if (state === 'play'){
+    runT += dt;
     bird.vy = Math.min(bird.vy + 1550*dt, 720);
     bird.y += bird.vy*dt;
     spawnT -= dt;
     if (spawnT <= 0){
       const g = gap(), margin = 70;
-      const gy = margin + Math.random()*(VH - GROUND - margin*2 - g);
-      pipes.push({ x: W + 40, gy, g, w: 72, scored: false });
-      spawnT = 1.55 - 0.3*difficulty();
+      const r1 = rng(), r2 = rng(), r3 = rng(), r4 = rng(), r5 = rng(), r6 = rng();
+      const amp = passed >= 20 && r2 < 0.5 ? 22 + r3*28 : 0;
+      const base = margin + amp + r1*(VH - GROUND - margin*2 - amp*2 - g);
+      const p = { x: W + 40, base, gy: base, g, w: 72, amp, ph: r6*6.28, spd: 1.2 + r3, scored: false, minC: 999 };
+      pipes.push(p);
+      if (r4 < 0.4){
+        const mid = p.x + p.w + speed()*interval()/2 - 36;
+        fish.push({ x: mid, y: 110 + r5*(VH - GROUND - 220), ph: r6*6.28, got: false });
+      }
+      spawnT = interval();
     }
+    const r = bird.r - 3;
     for (const p of pipes){
       p.x -= sp*dt;
+      if (p.amp) p.gy = p.base + Math.sin(runT*p.spd + p.ph)*p.amp;
+      if (bird.x + r > p.x && bird.x - r < p.x + p.w)
+        p.minC = Math.min(p.minC, bird.y - r - p.gy, p.gy + p.g - bird.y - r);
       if (!p.scored && p.x + p.w < bird.x){
-        p.scored = true; score++;
+        p.scored = true; passed++; addScore(1);
         beep(880, 0.08, 'triangle', 0.06); setTimeout(()=>beep(1320,0.1,'triangle',0.05),70);
+        if (p.minC < NEAR){
+          addScore(1); pop('Nära ögat! +1', bird.x + 30, bird.y - 30, '#7dffc4');
+          flash = Math.max(flash, 0.25); buzz(25); beep(1500, 0.08, 'sine', 0.05, 2200);
+        }
       }
-      const r = bird.r - 3;
       if (hitRect(bird.x, bird.y, r, p.x, -100, p.w, p.gy+100) ||
           hitRect(bird.x, bird.y, r, p.x, p.gy+p.g, p.w, VH)) die();
     }
+    for (const f of fish){
+      f.x -= sp*dt;
+      const fy = f.y + Math.sin(t*3 + f.ph)*8;
+      if (!f.got && Math.hypot(bird.x - f.x, bird.y - fy) < bird.r + 12){
+        f.got = true; addScore(2); pop('+2', f.x, fy - 20, '#ffd56b', 24);
+        beep(1046, 0.07, 'square', 0.04); setTimeout(()=>beep(1568,0.09,'square',0.04),60);
+        for (let i=0;i<8;i++) particles.push({x:f.x,y:fy,vx:(Math.random()-0.5)*200,vy:-Math.random()*200,life:0.6,c:'#ffd56b'});
+      }
+    }
     pipes = pipes.filter(p => p.x > -100);
+    fish = fish.filter(f => f.x > -40 && !f.got);
     if (bird.y + bird.r > VH - GROUND){ bird.y = VH - GROUND - bird.r; die(); }
     if (bird.y < -40){ bird.y = -40; bird.vy = 0; }
   } else {
@@ -202,38 +310,56 @@ function update(dt){
   }
   for (const p of particles){ p.x += p.vx*dt; p.y += p.vy*dt; p.vy += 300*dt; p.life -= dt; }
   particles = particles.filter(p => p.life > 0);
+  for (const p of pops){ p.y -= 40*dt; p.life -= dt; }
+  pops = pops.filter(p => p.life > 0);
+}
+
+// ---------- färger ----------
+function hex(h){ return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)]; }
+function mix(a, b, f){ const A = hex(a), B = hex(b); return `rgb(${A.map((v,i) => Math.round(v + (B[i]-v)*f)).join(',')})`; }
+function pal(){
+  const i = Math.min(Math.floor(skyF), PAL.length - 2), f = Math.min(skyF - i, 1), A = PAL[i], B = PAL[i+1];
+  return { a: mix(A.a,B.a,f), b: mix(A.b,B.b,f), c: mix(A.c,B.c,f), hill: mix(A.hill,B.hill,f),
+           aur: A.aur + (B.aur-A.aur)*f, star: A.star + (B.star-A.star)*f, moon: A.moon + (B.moon-A.moon)*f };
 }
 
 // ---------- ritning ----------
-function rr(x,y,w,h,r){ ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x,y,w,h,r) : ctx.rect(x,y,w,h); }
+function rr(c,x,y,w,h,r){ c.beginPath(); c.roundRect ? c.roundRect(x,y,w,h,r) : c.rect(x,y,w,h); }
 
 function drawBg(){
+  const P = pal();
   const g = ctx.createLinearGradient(0,0,0,VH);
-  g.addColorStop(0,'#0b1a33'); g.addColorStop(0.6,'#24457a'); g.addColorStop(1,'#5a86b8');
+  g.addColorStop(0,P.a); g.addColorStop(0.6,P.b); g.addColorStop(1,P.c);
   ctx.fillStyle = g; ctx.fillRect(-20,-20,W+40,VH+40);
-  ctx.globalAlpha = 0.18;
+  if (P.star > 0.01){
+    ctx.fillStyle = '#fff';
+    for (const s of stars){ ctx.globalAlpha = P.star*(0.5 + 0.5*Math.sin(t*2 + s.p)); ctx.beginPath(); ctx.arc(s.x*W, s.y*VH, s.r, 0, 7); ctx.fill(); }
+  }
+  ctx.globalAlpha = P.aur;
   for (let i=0;i<3;i++){
-    ctx.fillStyle = i===1 ? '#7dffc4' : '#6fe0ff';
+    ctx.fillStyle = i===1 ? '#7dffc4' : (i===2 ? '#c38bff' : '#6fe0ff');
     ctx.beginPath(); ctx.moveTo(0, 120+i*30);
     for (let x=0;x<=W+20;x+=20) ctx.lineTo(x, 110+i*35 + Math.sin(x*0.012 + t*0.6 + i)*25);
     ctx.lineTo(W+20, 0); ctx.lineTo(0,0); ctx.fill();
   }
-  ctx.globalAlpha = 1;
+  ctx.globalAlpha = P.moon;
   ctx.fillStyle = '#f4f1d0'; ctx.beginPath(); ctx.arc(W*0.8, 90, 26, 0, 7); ctx.fill();
-  ctx.fillStyle = '#c9e4f7';
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = P.hill;
   for (const h of hills){ ctx.beginPath(); ctx.ellipse(h.x, VH-GROUND+10, 120, h.h, 0, Math.PI, 0); ctx.fill(); }
   ctx.fillStyle = '#fff';
   for (const f of flakes){ if (f.x < W+10){ ctx.globalAlpha = 0.7; ctx.beginPath(); ctx.arc(f.x, f.y, f.r, 0, 7); ctx.fill(); } }
   ctx.globalAlpha = 1;
 }
 
-function drawPillar(x, y, w, h, top){
+function drawPillar(x, y, w, h, top, moving){
   const g = ctx.createLinearGradient(x,0,x+w,0);
-  g.addColorStop(0,'#7cc7ee'); g.addColorStop(0.35,'#e6f7ff'); g.addColorStop(1,'#4ea5d6');
-  ctx.fillStyle = g; rr(x, y, w, h, 6); ctx.fill();
+  if (moving){ g.addColorStop(0,'#9fb4f0'); g.addColorStop(0.35,'#eef0ff'); g.addColorStop(1,'#6f7fd6'); }
+  else { g.addColorStop(0,'#7cc7ee'); g.addColorStop(0.35,'#e6f7ff'); g.addColorStop(1,'#4ea5d6'); }
+  ctx.fillStyle = g; rr(ctx, x, y, w, h, 6); ctx.fill();
   ctx.strokeStyle = 'rgba(20,60,100,.5)'; ctx.lineWidth = 2; ctx.stroke();
   const capY = top ? y + h - 22 : y;
-  ctx.fillStyle = g; rr(x-6, capY, w+12, 22, 6); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = g; rr(ctx, x-6, capY, w+12, 22, 6); ctx.fill(); ctx.stroke();
   if (top){
     ctx.fillStyle = '#d8f2ff';
     for (let i=0;i<5;i++){
@@ -241,8 +367,20 @@ function drawPillar(x, y, w, h, top){
       ctx.beginPath(); ctx.moveTo(ix, capY+22); ctx.lineTo(ix + (w+4)/10, capY+22+len); ctx.lineTo(ix+(w+4)/5, capY+22); ctx.fill();
     }
   } else {
-    ctx.fillStyle = '#fff'; rr(x-6, capY-5, w+12, 9, 5); ctx.fill();
+    ctx.fillStyle = '#fff'; rr(ctx, x-6, capY-5, w+12, 9, 5); ctx.fill();
   }
+}
+
+function drawFish(f){
+  const y = f.y + Math.sin(t*3 + f.ph)*8;
+  ctx.save(); ctx.translate(f.x, y); ctx.rotate(Math.sin(t*4 + f.ph)*0.15);
+  ctx.fillStyle = 'rgba(255,213,107,.25)'; ctx.beginPath(); ctx.arc(0, 0, 18 + Math.sin(t*5)*2, 0, 7); ctx.fill();
+  ctx.fillStyle = '#ff9d3a';
+  ctx.beginPath(); ctx.moveTo(-9, 0); ctx.lineTo(-17, -7); ctx.lineTo(-17, 7); ctx.fill();
+  ctx.fillStyle = '#ffb85c'; ctx.beginPath(); ctx.ellipse(1, 0, 11, 7, 0, 0, 7); ctx.fill();
+  ctx.fillStyle = '#fff3d6'; ctx.beginPath(); ctx.ellipse(3, 2, 6, 3, 0, 0, 7); ctx.fill();
+  ctx.fillStyle = '#1d2433'; ctx.beginPath(); ctx.arc(6, -2, 1.6, 0, 7); ctx.fill();
+  ctx.restore();
 }
 
 function drawGround(){
@@ -252,22 +390,45 @@ function drawGround(){
   ctx.fillStyle = '#9cc8e4'; ctx.fillRect(-20, VH-GROUND+30, W+40, 4);
 }
 
-function drawBird(){
-  const rot = state === 'ready' ? Math.sin(t*3)*0.1 : Math.max(-0.5, Math.min(1.3, bird.vy/600));
-  ctx.save(); ctx.translate(bird.x, bird.y); ctx.rotate(rot);
-  ctx.fillStyle = '#e8394d';
-  ctx.beginPath(); ctx.moveTo(-8, 4); ctx.lineTo(-26, 2 + Math.sin(t*14)*5); ctx.lineTo(-24, 10 + Math.sin(t*14+1)*5); ctx.lineTo(-6, 10); ctx.fill();
-  ctx.fillStyle = '#1d2433'; ctx.beginPath(); ctx.ellipse(0, 0, 19, 17, 0, 0, 7); ctx.fill();
-  ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.ellipse(4, 4, 12, 11, 0, 0, 7); ctx.fill();
-  ctx.fillStyle = '#e8394d'; rr(-12, 4, 24, 5, 2); ctx.fill();
-  ctx.fillStyle = '#2c3549';
-  ctx.save(); ctx.translate(-4, 2); ctx.rotate(-0.4 - bird.wing*1.4);
-  ctx.beginPath(); ctx.ellipse(-6, 0, 12, 6, 0, 0, 7); ctx.fill(); ctx.restore();
-  ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(8, -6, 5.5, 0, 7); ctx.fill();
-  ctx.fillStyle = '#111'; ctx.beginPath(); ctx.arc(9.5, -6, state==='dead'?1.2:2.8, 0, 7); ctx.fill();
-  ctx.fillStyle = '#ffb02e'; ctx.beginPath(); ctx.moveTo(15,-2); ctx.lineTo(25,1); ctx.lineTo(15,4); ctx.fill();
-  ctx.fillStyle = 'rgba(255,120,150,.6)'; ctx.beginPath(); ctx.arc(10, 2, 2.5, 0, 7); ctx.fill();
-  ctx.restore();
+function drawPenguin(c, x, y, rot, wing, id, dead, tt){
+  let body = '#1d2433', belly = '#ffffff', wingC = '#2c3549', scarf = '#e8394d';
+  if (id === 'cool') scarf = '#2f8fd1';
+  if (id === 'guld'){ body = '#d19a22'; belly = '#fff4cf'; wingC = '#ad7b12'; scarf = '#1d2433'; }
+  if (id === 'kosmos'){ body = '#2b1a55'; belly = '#ece6ff'; wingC = '#3e2a7c'; scarf = `hsl(${(tt*120)%360},90%,62%)`; }
+  c.save(); c.translate(x, y); c.rotate(rot);
+  if (id === 'kosmos'){
+    c.fillStyle = '#fff';
+    for (let i=0;i<5;i++){ const a = tt*1.5 + i*1.256; c.globalAlpha = 0.5 + 0.5*Math.sin(tt*4 + i); c.beginPath(); c.arc(Math.cos(a)*27, Math.sin(a)*24, 1.6, 0, 7); c.fill(); }
+    c.globalAlpha = 1;
+  }
+  c.fillStyle = scarf;
+  c.beginPath(); c.moveTo(-8, 4); c.lineTo(-26, 2 + Math.sin(tt*14)*5); c.lineTo(-24, 10 + Math.sin(tt*14+1)*5); c.lineTo(-6, 10); c.fill();
+  c.fillStyle = body; c.beginPath(); c.ellipse(0, 0, 19, 17, 0, 0, 7); c.fill();
+  c.fillStyle = belly; c.beginPath(); c.ellipse(4, 4, 12, 11, 0, 0, 7); c.fill();
+  c.fillStyle = scarf; rr(c, -12, 4, 24, 5, 2); c.fill();
+  c.fillStyle = wingC;
+  c.save(); c.translate(-4, 2); c.rotate(-0.4 - wing*1.4);
+  c.beginPath(); c.ellipse(-6, 0, 12, 6, 0, 0, 7); c.fill(); c.restore();
+  if (id === 'cool'){
+    c.strokeStyle = '#111'; c.lineWidth = 2; c.beginPath(); c.moveTo(3, -7); c.lineTo(-15, -6); c.stroke();
+    c.fillStyle = '#111'; rr(c, 2, -11, 15, 8, 3); c.fill();
+    c.fillStyle = 'rgba(120,200,255,.6)'; c.fillRect(5, -10, 4, 2);
+  } else {
+    c.fillStyle = '#fff'; c.beginPath(); c.arc(8, -6, 5.5, 0, 7); c.fill();
+    c.fillStyle = '#111'; c.beginPath(); c.arc(9.5, -6, dead?1.2:2.8, 0, 7); c.fill();
+  }
+  c.fillStyle = '#ffb02e'; c.beginPath(); c.moveTo(15,-2); c.lineTo(25,1); c.lineTo(15,4); c.fill();
+  c.fillStyle = 'rgba(255,120,150,.6)'; c.beginPath(); c.arc(10, 2, 2.5, 0, 7); c.fill();
+  if (id === 'tomte'){
+    c.fillStyle = '#e8394d'; c.beginPath(); c.moveTo(-13, -11); c.lineTo(9, -16); c.lineTo(-20, -33); c.fill();
+    c.fillStyle = '#fff'; rr(c, -15, -16, 26, 6, 3); c.fill();
+    c.beginPath(); c.arc(-20, -33, 4, 0, 7); c.fill();
+  }
+  if (id === 'guld'){
+    c.fillStyle = '#ffe680'; c.beginPath();
+    c.moveTo(-9,-15); c.lineTo(-6,-25); c.lineTo(-1,-18); c.lineTo(3,-27); c.lineTo(6,-18); c.lineTo(11,-24); c.lineTo(10,-14); c.closePath(); c.fill();
+  }
+  c.restore();
 }
 
 function text(s, x, y, size, align='center', fill='#fff'){
@@ -276,48 +437,64 @@ function text(s, x, y, size, align='center', fill='#fff'){
   ctx.lineWidth = size/6; ctx.strokeStyle = '#0b1a33'; ctx.strokeText(s, x, y);
   ctx.fillStyle = fill; ctx.fillText(s, x, y);
 }
-
 function fit(s, maxW, size){
   ctx.font = `900 ${size}px 'Rubik',system-ui,sans-serif`;
   if (ctx.measureText(s).width <= maxW) return s;
   while (s.length > 1 && ctx.measureText(s + '…').width > maxW) s = s.slice(0, -1);
   return s + '…';
 }
+function drawMedal(i, x, y, r){
+  const m = MEDALS[i];
+  ctx.fillStyle = m.c; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill();
+  ctx.strokeStyle = 'rgba(255,255,255,.7)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(x, y, r - 5, 0, 7); ctx.stroke();
+  ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.beginPath();
+  for (let k=0;k<10;k++){ const a = -Math.PI/2 + k*Math.PI/5, rad = k%2 ? r*0.22 : r*0.5; ctx.lineTo(x + Math.cos(a)*rad, y + Math.sin(a)*rad); }
+  ctx.fill();
+}
 
 function drawTop(cx, cw, y){
-  text('TOPP 10', cx + cw/2, y, 18, 'center', '#bff0ff');
-  y += 26;
+  text(mode === 'daily' ? 'DAGENS TOPP 10' : 'TOPP 10', cx + cw/2, y, 17, 'center', '#bff0ff');
+  y += 24;
   if (topState === 'loading' && !top.length){ text('Laddar…', cx + cw/2, y, 15); return; }
   if (topState === 'error' && !top.length){ text('Topplistan kunde inte nås', cx + cw/2, y, 15, 'center', '#ff8a9a'); return; }
   if (!top.length){ text('Inga poäng än – bli först!', cx + cw/2, y, 15); return; }
   top.forEach((e, i) => {
-    const me = lastRank ? (i + 1 === lastRank) : false;
+    const me = lastRank && i + 1 === lastRank;
     const col = me ? '#ffe27a' : (i < 3 ? '#ffffff' : '#d6e9f8');
-    text((i+1) + '.', cx + 34, y + i*21, 15, 'right', col);
-    text(fit(e.player, cw - 110, 15), cx + 42, y + i*21, 15, 'left', col);
-    text(String(e.score), cx + cw - 18, y + i*21, 15, 'right', col);
+    text((i+1) + '.', cx + 34, y + i*20, 15, 'right', col);
+    text(fit(e.player, cw - 110, 15), cx + 42, y + i*20, 15, 'left', col);
+    text(String(e.score), cx + cw - 18, y + i*20, 15, 'right', col);
   });
 }
 
 function drawUI(){
-  if (state === 'play') text(score, W/2, 90, 56);
-  if (state === 'ready'){
-    text('PINGO FLYGER', W/2, 170, 40, 'center', '#bff0ff');
-    text('Tryck för att flaxa', W/2, VH*0.62, 22);
-    if (best) text('Ditt rekord: ' + best, W/2, VH*0.62 + 36, 18, 'center', '#ffe27a');
-    if (playerName) text('Spelar som ' + fit(playerName, W - 160, 16), W/2, VH*0.62 + 66, 16, 'center', '#bff0ff');
+  if (state === 'play'){
+    text(score, W/2, 90, 56);
+    if (mode === 'daily') text('DAGENS BANA', W/2, 118, 13, 'center', '#bff0ff');
   }
+  if (state === 'ready'){
+    text(mode === 'daily' ? 'DAGENS BANA' : 'PINGO FLYGER', W/2, 170, mode === 'daily' ? 34 : 40, 'center', '#bff0ff');
+    text('Tryck för att flaxa', W/2, VH*0.62, 22);
+    if (best) text((mode === 'daily' ? 'Ditt bästa idag: ' : 'Ditt rekord: ') + best, W/2, VH*0.62 + 34, 18, 'center', '#ffe27a');
+    text('Fisk +2 · Nära ögat +1', W/2, VH*0.62 + 64, 14, 'center', '#d6e9f8');
+  }
+  for (const p of pops){ ctx.globalAlpha = Math.min(1, p.life*2); text(p.txt, p.x, p.y, p.size, 'center', p.c); }
+  ctx.globalAlpha = 1;
   if (state === 'dead'){
-    ctx.globalAlpha = Math.min(deadT*3, 1);
-    const cw = Math.min(300, W-30), cx = W/2 - cw/2, cy = 95;
-    ctx.fillStyle = 'rgba(11,26,51,.88)'; rr(cx, cy, cw, 455, 18); ctx.fill();
-    ctx.strokeStyle = '#9fd8ff'; ctx.lineWidth = 3; ctx.stroke();
-    text('KRASCH!', W/2, cy+46, 34, 'center', '#ff8a9a');
-    text('Poäng: ' + score, W/2, cy+84, 24);
-    text((score >= best && score>0 ? 'NYTT REKORD! ' : 'Ditt rekord: ') + best, W/2, cy+114, 18, 'center', '#ffe27a');
-    if (rankMsg) text(rankMsg, W/2, cy+142, 15, 'center', '#7dffc4');
-    drawTop(cx, cw, cy+178);
-    if (deadT > 0.8) text('Tryck för att köra igen', W/2, cy+438, 16, 'center', '#bff0ff');
+    ctx.globalAlpha = Math.min(deadT*4, 1);
+    const cw = Math.min(300, W-30), cx = W/2 - cw/2, cy = 84;
+    ctx.fillStyle = 'rgba(22,18,48,.9)'; rr(ctx, cx, cy, cw, 476, 22); ctx.fill();
+    ctx.strokeStyle = 'rgba(159,216,255,.6)'; ctx.lineWidth = 2; ctx.stroke();
+    text('KRASCH!', W/2, cy+44, 34, 'center', '#ff8a9a');
+    text(mode === 'daily' ? 'Dagens bana' : 'Klassiskt', W/2, cy+68, 13, 'center', '#bff0ff');
+    const m = medalFor(score);
+    if (m >= 0) drawMedal(m, cx + 44, cy + 106, 22);
+    text('Poäng: ' + score, m >= 0 ? W/2 + 18 : W/2, cy+114, 26);
+    text((score >= best && score > 0 ? 'NYTT REKORD! ' : (mode === 'daily' ? 'Bästa idag: ' : 'Ditt rekord: ')) + best, W/2, cy+146, 18, 'center', '#ffe27a');
+    if (rankMsg) text(rankMsg, W/2, cy+172, 15, 'center', '#7dffc4');
+    if (unlockMsg) text(fit(unlockMsg, cw - 24, 15), W/2, cy+194, 15, 'center', '#ffb3f0');
+    drawTop(cx, cw, cy+224);
+    if (deadT > 0.35) text('Tryck för att köra igen', W/2, cy+462, 16, 'center', '#bff0ff');
     ctx.globalAlpha = 1;
   }
 }
@@ -326,26 +503,76 @@ function draw(){
   ctx.save();
   if (shake) ctx.translate((Math.random()-0.5)*shake, (Math.random()-0.5)*shake);
   drawBg();
+  for (const f of fish) drawFish(f);
   for (const p of pipes){
-    drawPillar(p.x, -20, p.w, p.gy + 20, true);
-    drawPillar(p.x, p.gy + p.g, p.w, VH - GROUND - p.gy - p.g + 2, false);
+    drawPillar(p.x, -20, p.w, p.gy + 20, true, p.amp > 0);
+    drawPillar(p.x, p.gy + p.g, p.w, VH - GROUND - p.gy - p.g + 2, false, p.amp > 0);
   }
   drawGround();
   for (const p of particles){ ctx.globalAlpha = Math.max(0, p.life*1.5); ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, 7); ctx.fill(); }
   ctx.globalAlpha = 1;
-  drawBird();
+  const rot = state === 'play' || state === 'dead' ? Math.max(-0.5, Math.min(1.3, bird.vy/600)) : Math.sin(t*3)*0.1;
+  drawPenguin(ctx, bird.x, bird.y, rot, bird.wing, skin, state === 'dead', t);
   ctx.restore();
   if (flash){ ctx.fillStyle = `rgba(255,255,255,${flash*0.7})`; ctx.fillRect(0,0,W,VH); }
   drawUI();
 }
 
+// ---------- meny ----------
+const menu = document.getElementById('menu'), nm = document.getElementById('nm'), nmi = document.getElementById('nmi'), mbtn = document.getElementById('mbtn');
+let pendingMode = null;
+function showMenu(){
+  state = 'menu'; pipes = []; fish = []; pops = []; mbtn.hidden = true;
+  const who = document.getElementById('who');
+  who.textContent = playerName ? 'Spelar som ' + playerName : 'Inget namn än';
+  const a = document.createElement('a'); a.textContent = playerName ? 'Byt namn' : 'Välj namn'; a.onclick = () => askName(null);
+  who.append(' · ', a);
+  const db = +ls.get('pingo_daily_' + TODAY, 0) || 0;
+  document.getElementById('dailyInfo').textContent = 'Samma bana för alla idag' + (db ? ' · ditt bästa: ' + db : '');
+  document.getElementById('medals').innerHTML = MEDALS.map(m =>
+    `<div class="medal${maxEver >= m.s ? '' : ' off'}"><i style="background:${m.c}"></i>${m.s}p</div>`).join('');
+  const box = document.getElementById('skins'); box.innerHTML = '';
+  for (const s of SKINS){
+    const b = document.createElement('button'), open = maxEver >= s.need;
+    b.className = 'skin' + (s.id === skin ? ' on' : ''); b.disabled = !open;
+    const c = document.createElement('canvas'); c.width = c.height = 88;
+    const cc = c.getContext('2d'); cc.setTransform(1.5,0,0,1.5,0,0);
+    drawPenguin(cc, 30, 34, 0, 0, s.id, false, 1);
+    b.append(c, open ? s.n : '🔒 ' + s.need + 'p');
+    b.onclick = () => { skin = s.id; ls.set('pingo_skin', skin); showMenu(); };
+    box.append(b);
+  }
+  menu.hidden = false;
+}
+function startMode(m){
+  if (!playerName){ askName(m); return; }
+  mode = m; menu.hidden = true; mbtn.hidden = false;
+  reset(); loadTop();
+}
+function askName(next){ pendingMode = next; nmi.value = playerName; nm.hidden = false; menu.hidden = true; setTimeout(() => nmi.focus(), 50); }
+nm.querySelector('form').addEventListener('submit', e => {
+  e.preventDefault();
+  const v = nmi.value.trim().replace(/\s+/g, ' ').slice(0, 16);
+  if (!v) return;
+  playerName = v; ls.set('pingo_name', v);
+  nm.hidden = true; nmi.blur();
+  if (pendingMode) startMode(pendingMode); else showMenu();
+});
+document.getElementById('bClassic').onclick = () => startMode('classic');
+document.getElementById('bDaily').onclick = () => startMode('daily');
+mbtn.onclick = showMenu;
+
 // ---------- input & loop ----------
-cv.addEventListener('pointerdown', e => { e.preventDefault(); flap(); });
+cv.addEventListener('pointerdown', e => { e.preventDefault(); if (state !== 'menu') flap(); });
 addEventListener('keydown', e => {
   if (!nm.hidden) return;
-  if (e.code === 'Space' || e.code === 'ArrowUp'){ e.preventDefault(); if (!e.repeat) flap(); }
+  if (e.code === 'Space' || e.code === 'ArrowUp'){
+    e.preventDefault(); if (e.repeat) return;
+    if (state === 'menu') startMode('classic'); else flap();
+  }
+  if (e.code === 'Escape' && state !== 'play') showMenu();
 });
-document.addEventListener('touchmove', e => { if (nm.hidden) e.preventDefault(); }, { passive: false });
+document.addEventListener('touchmove', e => { if (nm.hidden && menu.hidden) e.preventDefault(); }, { passive: false });
 
 let last = performance.now();
 function loop(now){
@@ -353,9 +580,8 @@ function loop(now){
   update(dt); draw();
   requestAnimationFrame(loop);
 }
-resize(); reset();
-if (!playerName) askName();
-loadTop();
+resize(); skyF = 1;
+if (playerName) showMenu(); else askName(null);
 requestAnimationFrame(loop);
 })();
 </script>
