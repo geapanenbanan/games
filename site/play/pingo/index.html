@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0b1a33">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>Pingo Flyger</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;height:100%;background:#0b1a33;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+  canvas{display:block;width:100vw;height:100vh;height:100dvh}
+  #nm{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;background:rgba(10,8,30,.45);font-family:'Rubik',system-ui,sans-serif;z-index:3}
+  #nm[hidden],#chg[hidden]{display:none}
+  #nm form{background:rgba(22,18,48,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:22px 22px 18px;max-width:340px;width:100%;box-sizing:border-box;box-shadow:0 24px 60px rgba(0,0,0,.45);color:#e9e6ff;text-align:center;animation:pop .35s cubic-bezier(.2,1.15,.4,1)}
+  @keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
+  #nm label{display:block;font-weight:900;font-size:24px;margin-bottom:14px;color:#bff0ff}
+  #nm input{width:100%;box-sizing:border-box;font:500 18px 'Rubik',system-ui,sans-serif;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;text-align:center;outline:none;-webkit-user-select:text;user-select:text}
+  #nm input:focus{border-color:#9fd8ff}
+  #nm button{border:0;font-family:inherit;font-weight:700;font-size:19px;letter-spacing:2px;text-transform:uppercase;padding:13px 38px;border-radius:14px;background:linear-gradient(#ffd56b,#f0a62a);color:#2a1440;box-shadow:0 4px 0 #9c5f0c,0 10px 20px rgba(0,0,0,.3);margin:16px 4px 2px;cursor:pointer}
+  #nm button:active{transform:translateY(3px);box-shadow:0 1px 0 #9c5f0c}
+  #chg{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:12px;z-index:2;font:700 13px 'Rubik',system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase;color:#fff;background:rgba(15,12,35,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 16px;cursor:pointer}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<button id="chg" hidden>Byt namn</button>
+<div id="nm" hidden><form><label for="nmi">Vad heter du?</label><input id="nmi" maxlength="16" autocomplete="nickname" enterkeyhint="go" required><button>Spela</button></form></div>
+<script>
+(() => {
+// ---------- topplista ----------
+const API_URL = 'https://api.rostyfrosty.com/v1/scores/pingo/classic';
+const API_KEY = 'rf_BYT_MIG';   // <-- klistra in nyckeln från servern
+
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const VH = 640, GROUND = 70;
+let W = 360, S = 1, dpr = 1;
+
+function resize(){
+  dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const h = cv.clientHeight || innerHeight, w = cv.clientWidth || innerWidth;
+  S = h / VH; W = w / S;
+  cv.width = w * dpr; cv.height = h * dpr;
+  ctx.setTransform(S*dpr,0,0,S*dpr,0,0);
+  if (state === 'ready') bird.x = W * 0.3;
+}
+addEventListener('resize', resize);
+
+// ---------- ljud ----------
+let ac = null;
+function beep(f, d, type='square', v=0.06, slide=0){
+  try{
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    const o = ac.createOscillator(), g = ac.createGain(), t = ac.currentTime;
+    o.type = type; o.frequency.setValueAtTime(f, t);
+    if (slide) o.frequency.exponentialRampToValueAtTime(slide, t + d);
+    g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(0.0001, t + d);
+    o.connect(g).connect(ac.destination); o.start(t); o.stop(t + d);
+  }catch(e){}
+}
+
+// ---------- lokalt rekord & namn ----------
+let best = 0, playerName = '';
+try{ best = +localStorage.getItem('pingo_best') || 0; playerName = localStorage.getItem('pingo_name') || ''; }catch(e){}
+function saveBest(){ try{ localStorage.setItem('pingo_best', best); }catch(e){} }
+
+const nm = document.getElementById('nm'), nmi = document.getElementById('nmi'), chg = document.getElementById('chg');
+function askName(){ nmi.value = playerName; nm.hidden = false; chg.hidden = true; setTimeout(() => nmi.focus(), 50); }
+nm.querySelector('form').addEventListener('submit', e => {
+  e.preventDefault();
+  const v = nmi.value.trim().replace(/\s+/g, ' ').slice(0, 16);
+  if (!v) return;
+  playerName = v;
+  try{ localStorage.setItem('pingo_name', v); }catch(e){}
+  nm.hidden = true; nmi.blur();
+  if (state === 'ready') chg.hidden = false;
+});
+chg.addEventListener('click', askName);
+
+// ---------- online-topplista ----------
+let top = [], topState = 'idle', rankMsg = '', lastRank = 0;
+async function loadTop(){
+  topState = 'loading';
+  try{
+    const r = await fetch(API_URL + '?limit=10');
+    if (!r.ok) throw 0;
+    const j = await r.json();
+    const list = Array.isArray(j) ? j : (j.scores || j.entries || j.items || []);
+    top = list.slice(0, 10).map(e => ({ player: String(e.player ?? e.name ?? '?'), score: +e.score || 0 }));
+    topState = 'ok';
+  }catch(e){ topState = 'error'; }
+}
+async function submitScore(s){
+  lastRank = 0; rankMsg = 'Skickar poäng…';
+  try{
+    const r = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Api-Key': API_KEY },
+      body: JSON.stringify({ player: playerName, score: s }),
+      keepalive: true
+    });
+    if (!r.ok) throw 0;
+    const j = await r.json();
+    lastRank = +j.rank || 0;
+    rankMsg = lastRank ? `Du hamnade på plats ${lastRank}!` : '';
+  }catch(e){ rankMsg = 'Kunde inte skicka poängen'; }
+  loadTop();
+}
+
+// ---------- spelvärld ----------
+let state = 'ready', score = 0, t = 0, deadT = 0, flash = 0, shake = 0;
+const bird = { x: 100, y: VH*0.42, vy: 0, r: 17, wing: 0 };
+let pipes = [], spawnT = 0, particles = [], groundX = 0;
+const flakes = Array.from({length: 60}, () => ({ x: Math.random()*2000, y: Math.random()*VH, r: Math.random()*2+0.6, s: Math.random()*20+10 }));
+const hills = Array.from({length: 12}, (_, i) => ({ x: i*160, h: 60 + Math.random()*80 }));
+
+function difficulty(){ return Math.min(score / 40, 1); }
+function speed(){ return 165 + 85*difficulty(); }
+function gap(){ return 175 - 40*difficulty(); }
+
+function reset(){
+  state = 'ready'; score = 0; pipes = []; spawnT = 0; particles = []; rankMsg = '';
+  bird.x = W*0.3; bird.y = VH*0.42; bird.vy = 0;
+  if (playerName) chg.hidden = false;
+}
+
+function flap(){
+  if (!nm.hidden) return;
+  if (state === 'ready'){
+    if (!playerName){ askName(); return; }
+    state = 'play'; chg.hidden = true;
+  }
+  if (state === 'play'){
+    bird.vy = -470; bird.wing = 1;
+    beep(520, 0.09, 'square', 0.04, 760);
+    for (let i=0;i<5;i++) particles.push({x:bird.x-12,y:bird.y+6,vx:-60-Math.random()*80,vy:(Math.random()-0.3)*80,life:0.5,c:'#e8f6ff'});
+  } else if (state === 'dead' && deadT > 0.8){
+    reset();
+  }
+}
+
+function die(){
+  if (state !== 'play') return;
+  state = 'dead'; deadT = 0; flash = 1; shake = 12;
+  beep(220, 0.35, 'sawtooth', 0.07, 60);
+  if (score > best){ best = score; saveBest(); }
+  if (score > 0 && playerName) submitScore(score); else loadTop();
+  for (let i=0;i<24;i++){
+    const a = Math.random()*Math.PI*2, v = 80+Math.random()*220;
+    particles.push({x:bird.x,y:bird.y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,life:0.9,c:i%3?'#ffffff':'#9fd8ff'});
+  }
+}
+
+function hitRect(cx, cy, r, x, y, w, h){
+  const nx = Math.max(x, Math.min(cx, x+w)), ny = Math.max(y, Math.min(cy, y+h));
+  const dx = cx-nx, dy = cy-ny; return dx*dx + dy*dy < r*r;
+}
+
+function update(dt){
+  t += dt;
+  flash = Math.max(0, flash - dt*3);
+  shake = Math.max(0, shake - dt*40);
+  bird.wing = Math.max(0, bird.wing - dt*5);
+  const sp = state === 'dead' ? 0 : speed();
+  groundX = (groundX + sp*dt) % 48;
+  for (const f of flakes){ f.y += f.s*dt; f.x -= (sp*0.1 + 8)*dt; if (f.y > VH){ f.y = -5; } if (f.x < -10) f.x += W+20; }
+  for (const h of hills){ h.x -= sp*0.2*dt; if (h.x < -200) h.x += 12*160; }
+
+  if (state === 'ready'){
+    bird.y = VH*0.42 + Math.sin(t*3)*10;
+    if (Math.sin(t*6) > 0.9) bird.wing = 0.6;
+  } else if (state === 'play'){
+    bird.vy = Math.min(bird.vy + 1550*dt, 720);
+    bird.y += bird.vy*dt;
+    spawnT -= dt;
+    if (spawnT <= 0){
+      const g = gap(), margin = 70;
+      const gy = margin + Math.random()*(VH - GROUND - margin*2 - g);
+      pipes.push({ x: W + 40, gy, g, w: 72, scored: false });
+      spawnT = 1.55 - 0.3*difficulty();
+    }
+    for (const p of pipes){
+      p.x -= sp*dt;
+      if (!p.scored && p.x + p.w < bird.x){
+        p.scored = true; score++;
+        beep(880, 0.08, 'triangle', 0.06); setTimeout(()=>beep(1320,0.1,'triangle',0.05),70);
+      }
+      const r = bird.r - 3;
+      if (hitRect(bird.x, bird.y, r, p.x, -100, p.w, p.gy+100) ||
+          hitRect(bird.x, bird.y, r, p.x, p.gy+p.g, p.w, VH)) die();
+    }
+    pipes = pipes.filter(p => p.x > -100);
+    if (bird.y + bird.r > VH - GROUND){ bird.y = VH - GROUND - bird.r; die(); }
+    if (bird.y < -40){ bird.y = -40; bird.vy = 0; }
+  } else {
+    deadT += dt;
+    if (bird.y + bird.r < VH - GROUND){
+      bird.vy = Math.min(bird.vy + 1550*dt, 800); bird.y += bird.vy*dt;
+      if (bird.y + bird.r > VH - GROUND) bird.y = VH - GROUND - bird.r;
+    }
+  }
+  for (const p of particles){ p.x += p.vx*dt; p.y += p.vy*dt; p.vy += 300*dt; p.life -= dt; }
+  particles = particles.filter(p => p.life > 0);
+}
+
+// ---------- ritning ----------
+function rr(x,y,w,h,r){ ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x,y,w,h,r) : ctx.rect(x,y,w,h); }
+
+function drawBg(){
+  const g = ctx.createLinearGradient(0,0,0,VH);
+  g.addColorStop(0,'#0b1a33'); g.addColorStop(0.6,'#24457a'); g.addColorStop(1,'#5a86b8');
+  ctx.fillStyle = g; ctx.fillRect(-20,-20,W+40,VH+40);
+  ctx.globalAlpha = 0.18;
+  for (let i=0;i<3;i++){
+    ctx.fillStyle = i===1 ? '#7dffc4' : '#6fe0ff';
+    ctx.beginPath(); ctx.moveTo(0, 120+i*30);
+    for (let x=0;x<=W+20;x+=20) ctx.lineTo(x, 110+i*35 + Math.sin(x*0.012 + t*0.6 + i)*25);
+    ctx.lineTo(W+20, 0); ctx.lineTo(0,0); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = '#f4f1d0'; ctx.beginPath(); ctx.arc(W*0.8, 90, 26, 0, 7); ctx.fill();
+  ctx.fillStyle = '#c9e4f7';
+  for (const h of hills){ ctx.beginPath(); ctx.ellipse(h.x, VH-GROUND+10, 120, h.h, 0, Math.PI, 0); ctx.fill(); }
+  ctx.fillStyle = '#fff';
+  for (const f of flakes){ if (f.x < W+10){ ctx.globalAlpha = 0.7; ctx.beginPath(); ctx.arc(f.x, f.y, f.r, 0, 7); ctx.fill(); } }
+  ctx.globalAlpha = 1;
+}
+
+function drawPillar(x, y, w, h, top){
+  const g = ctx.createLinearGradient(x,0,x+w,0);
+  g.addColorStop(0,'#7cc7ee'); g.addColorStop(0.35,'#e6f7ff'); g.addColorStop(1,'#4ea5d6');
+  ctx.fillStyle = g; rr(x, y, w, h, 6); ctx.fill();
+  ctx.strokeStyle = 'rgba(20,60,100,.5)'; ctx.lineWidth = 2; ctx.stroke();
+  const capY = top ? y + h - 22 : y;
+  ctx.fillStyle = g; rr(x-6, capY, w+12, 22, 6); ctx.fill(); ctx.stroke();
+  if (top){
+    ctx.fillStyle = '#d8f2ff';
+    for (let i=0;i<5;i++){
+      const ix = x - 2 + i*(w+4)/5, len = 10 + ((i*7)%3)*6;
+      ctx.beginPath(); ctx.moveTo(ix, capY+22); ctx.lineTo(ix + (w+4)/10, capY+22+len); ctx.lineTo(ix+(w+4)/5, capY+22); ctx.fill();
+    }
+  } else {
+    ctx.fillStyle = '#fff'; rr(x-6, capY-5, w+12, 9, 5); ctx.fill();
+  }
+}
+
+function drawGround(){
+  ctx.fillStyle = '#eaf6ff'; ctx.fillRect(-20, VH-GROUND, W+40, GROUND+20);
+  ctx.fillStyle = '#b9dcf2';
+  for (let x = -groundX; x < W+48; x += 48){ ctx.beginPath(); ctx.ellipse(x, VH-GROUND+4, 22, 6, 0, 0, 7); ctx.fill(); }
+  ctx.fillStyle = '#9cc8e4'; ctx.fillRect(-20, VH-GROUND+30, W+40, 4);
+}
+
+function drawBird(){
+  const rot = state === 'ready' ? Math.sin(t*3)*0.1 : Math.max(-0.5, Math.min(1.3, bird.vy/600));
+  ctx.save(); ctx.translate(bird.x, bird.y); ctx.rotate(rot);
+  ctx.fillStyle = '#e8394d';
+  ctx.beginPath(); ctx.moveTo(-8, 4); ctx.lineTo(-26, 2 + Math.sin(t*14)*5); ctx.lineTo(-24, 10 + Math.sin(t*14+1)*5); ctx.lineTo(-6, 10); ctx.fill();
+  ctx.fillStyle = '#1d2433'; ctx.beginPath(); ctx.ellipse(0, 0, 19, 17, 0, 0, 7); ctx.fill();
+  ctx.fillStyle = '#ffffff'; ctx.beginPath(); ctx.ellipse(4, 4, 12, 11, 0, 0, 7); ctx.fill();
+  ctx.fillStyle = '#e8394d'; rr(-12, 4, 24, 5, 2); ctx.fill();
+  ctx.fillStyle = '#2c3549';
+  ctx.save(); ctx.translate(-4, 2); ctx.rotate(-0.4 - bird.wing*1.4);
+  ctx.beginPath(); ctx.ellipse(-6, 0, 12, 6, 0, 0, 7); ctx.fill(); ctx.restore();
+  ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(8, -6, 5.5, 0, 7); ctx.fill();
+  ctx.fillStyle = '#111'; ctx.beginPath(); ctx.arc(9.5, -6, state==='dead'?1.2:2.8, 0, 7); ctx.fill();
+  ctx.fillStyle = '#ffb02e'; ctx.beginPath(); ctx.moveTo(15,-2); ctx.lineTo(25,1); ctx.lineTo(15,4); ctx.fill();
+  ctx.fillStyle = 'rgba(255,120,150,.6)'; ctx.beginPath(); ctx.arc(10, 2, 2.5, 0, 7); ctx.fill();
+  ctx.restore();
+}
+
+function text(s, x, y, size, align='center', fill='#fff'){
+  ctx.font = `900 ${size}px 'Rubik',system-ui,sans-serif`;
+  ctx.textAlign = align; ctx.lineJoin = 'round';
+  ctx.lineWidth = size/6; ctx.strokeStyle = '#0b1a33'; ctx.strokeText(s, x, y);
+  ctx.fillStyle = fill; ctx.fillText(s, x, y);
+}
+
+function fit(s, maxW, size){
+  ctx.font = `900 ${size}px 'Rubik',system-ui,sans-serif`;
+  if (ctx.measureText(s).width <= maxW) return s;
+  while (s.length > 1 && ctx.measureText(s + '…').width > maxW) s = s.slice(0, -1);
+  return s + '…';
+}
+
+function drawTop(cx, cw, y){
+  text('TOPP 10', cx + cw/2, y, 18, 'center', '#bff0ff');
+  y += 26;
+  if (topState === 'loading' && !top.length){ text('Laddar…', cx + cw/2, y, 15); return; }
+  if (topState === 'error' && !top.length){ text('Topplistan kunde inte nås', cx + cw/2, y, 15, 'center', '#ff8a9a'); return; }
+  if (!top.length){ text('Inga poäng än – bli först!', cx + cw/2, y, 15); return; }
+  top.forEach((e, i) => {
+    const me = lastRank ? (i + 1 === lastRank) : false;
+    const col = me ? '#ffe27a' : (i < 3 ? '#ffffff' : '#d6e9f8');
+    text((i+1) + '.', cx + 34, y + i*21, 15, 'right', col);
+    text(fit(e.player, cw - 110, 15), cx + 42, y + i*21, 15, 'left', col);
+    text(String(e.score), cx + cw - 18, y + i*21, 15, 'right', col);
+  });
+}
+
+function drawUI(){
+  if (state === 'play') text(score, W/2, 90, 56);
+  if (state === 'ready'){
+    text('PINGO FLYGER', W/2, 170, 40, 'center', '#bff0ff');
+    text('Tryck för att flaxa', W/2, VH*0.62, 22);
+    if (best) text('Ditt rekord: ' + best, W/2, VH*0.62 + 36, 18, 'center', '#ffe27a');
+    if (playerName) text('Spelar som ' + fit(playerName, W - 160, 16), W/2, VH*0.62 + 66, 16, 'center', '#bff0ff');
+  }
+  if (state === 'dead'){
+    ctx.globalAlpha = Math.min(deadT*3, 1);
+    const cw = Math.min(300, W-30), cx = W/2 - cw/2, cy = 95;
+    ctx.fillStyle = 'rgba(11,26,51,.88)'; rr(cx, cy, cw, 455, 18); ctx.fill();
+    ctx.strokeStyle = '#9fd8ff'; ctx.lineWidth = 3; ctx.stroke();
+    text('KRASCH!', W/2, cy+46, 34, 'center', '#ff8a9a');
+    text('Poäng: ' + score, W/2, cy+84, 24);
+    text((score >= best && score>0 ? 'NYTT REKORD! ' : 'Ditt rekord: ') + best, W/2, cy+114, 18, 'center', '#ffe27a');
+    if (rankMsg) text(rankMsg, W/2, cy+142, 15, 'center', '#7dffc4');
+    drawTop(cx, cw, cy+178);
+    if (deadT > 0.8) text('Tryck för att köra igen', W/2, cy+438, 16, 'center', '#bff0ff');
+    ctx.globalAlpha = 1;
+  }
+}
+
+function draw(){
+  ctx.save();
+  if (shake) ctx.translate((Math.random()-0.5)*shake, (Math.random()-0.5)*shake);
+  drawBg();
+  for (const p of pipes){
+    drawPillar(p.x, -20, p.w, p.gy + 20, true);
+    drawPillar(p.x, p.gy + p.g, p.w, VH - GROUND - p.gy - p.g + 2, false);
+  }
+  drawGround();
+  for (const p of particles){ ctx.globalAlpha = Math.max(0, p.life*1.5); ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x, p.y, 3, 0, 7); ctx.fill(); }
+  ctx.globalAlpha = 1;
+  drawBird();
+  ctx.restore();
+  if (flash){ ctx.fillStyle = `rgba(255,255,255,${flash*0.7})`; ctx.fillRect(0,0,W,VH); }
+  drawUI();
+}
+
+// ---------- input & loop ----------
+cv.addEventListener('pointerdown', e => { e.preventDefault(); flap(); });
+addEventListener('keydown', e => {
+  if (!nm.hidden) return;
+  if (e.code === 'Space' || e.code === 'ArrowUp'){ e.preventDefault(); if (!e.repeat) flap(); }
+});
+document.addEventListener('touchmove', e => { if (nm.hidden) e.preventDefault(); }, { passive: false });
+
+let last = performance.now();
+function loop(now){
+  const dt = Math.min((now - last)/1000, 1/30); last = now;
+  update(dt); draw();
+  requestAnimationFrame(loop);
+}
+resize(); reset();
+if (!playerName) askName();
+loadTop();
+requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>

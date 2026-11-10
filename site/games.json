@@ -49,5 +49,26 @@
       "Kvällsljus, djupare färger och mörka menyer",
       "Svepstyrning (piltangenter på dator), kombo, bonusstjärnor och topp 5 som sparas"
     ]
+  },
+  {
+    "id": "pingo",
+    "title": "Pingo Flyger",
+    "color": "#2F8FD1",
+    "tagline": "Flaxa pingvinen Pingo mellan istapparna under norrskenet. Ett tryck, en chans.",
+    "description": [
+      "Tryck på skärmen för att flaxa och styr Pingo genom öppningarna mellan ispelarna. Varje pelare ger en poäng, och ju längre du klarar dig desto snabbare och trängre blir det.",
+      "Skriv ditt namn och tävla mot alla andra på den gemensamma topplistan. Spelas direkt i webbläsaren, inget att installera."
+    ],
+    "status": "Klart att spela",
+    "platforms": [
+      "Webbläsare (mobil och dator)"
+    ],
+    "version": "1.0",
+    "download": null,
+    "webPlay": "https://games.geapanenbanan.com/play/pingo/",
+    "changes": [
+      "Första versionen: ettrycksstyrning, stigande svårighet, ljud och partiklar",
+      "Online-topplista med topp 10"
+    ]
   }
 ]
