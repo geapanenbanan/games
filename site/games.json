@@ -63,11 +63,12 @@
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "1.5.1",
+    "version": "1.5.2",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/pingo/",
     "changes": [
-      "Åtgärdat: i Firefox kunde månen och snöflingor ibland blinka till som rektanglar"
+      "Åtgärdat: i Firefox på Android kunde pelare, månen och bakgrunden blinka fel i enstaka bildrutor",
+      "Versionsnumret visas längst ner i menyn"
     ]
   },
   {
