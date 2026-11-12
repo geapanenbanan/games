@@ -35,17 +35,19 @@
     "tagline": "Klassiska Snake i kvällsljus. Ät, väx och håll huvudet kallt när tempot ökar.",
     "description": [
       "Styr Kerstin genom att svepa på skärmen. Varje godis förlänger kedjan och höjer tempot. Krocka inte med kanten eller dig själv.",
-      "Ät flera godisar snabbt efter varandra för kombo och dubbla poäng, och håll utkik efter Doktor Smul som flyger förbi i sitt tefat och tappar guldstjärnor värda 50 poäng. Dina fem bästa resultat sparas i telefonen. Spelas direkt i webbläsaren, inget att installera."
+      "Ät flera godisar snabbt efter varandra för kombo och dubbla poäng, och håll utkik efter Doktor Smul som flyger förbi i sitt tefat och tappar guldstjärnor värda 50 poäng. Skriv ditt namn och tävla på topplistan, både genom tiderna och för dagen. Spelas direkt i webbläsaren, inget att installera."
     ],
     "status": "Klart att spela",
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "1.3",
+    "version": "1.4",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/snake-kerstin/",
     "changes": [
-      "Spelet finns nu på engelska. Svenska väljs automatiskt för svenska webbläsare"
+      "Skriv ditt namn och tävla på en gemensam topplista: topp 10 genom tiderna, dagens topplista och dina egna bästa",
+      "Topplistan är aldrig tom: godisfigurer fyller ut den och flyttar på sig för varje riktig spelare",
+      "Spelet säger till om namnet du väljer redan finns på topplistan"
     ]
   },
   {
@@ -61,11 +63,12 @@
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "1.2",
+    "version": "1.3",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/pingo/",
     "changes": [
-      "Spelet finns nu på engelska, Pingo Takes Flight. Svenska väljs automatiskt för svenska webbläsare"
+      "Topplistan är aldrig tom: polardjur fyller ut den och flyttar på sig för varje riktig spelare",
+      "Spelet säger till om namnet du väljer redan finns på topplistan"
     ]
   }
 ]
