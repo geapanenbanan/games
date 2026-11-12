@@ -63,12 +63,12 @@
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "1.3",
+    "version": "1.4",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/pingo/",
     "changes": [
-      "Topplistan är aldrig tom: polardjur fyller ut den och flyttar på sig för varje riktig spelare",
-      "Spelet säger till om namnet du väljer redan finns på topplistan"
+      "Dela ditt resultat efter rundan: poäng, medalj, fiskar och nära ögat, med en länk som utmanar kompisarna",
+      "Delade länkar till Dagens bana öppnar dagens bana direkt"
     ]
   }
 ]
