@@ -41,13 +41,13 @@
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "1.4",
+    "version": "1.5",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/snake-kerstin/",
     "changes": [
-      "Skriv ditt namn och tävla på en gemensam topplista: topp 10 genom tiderna, dagens topplista och dina egna bästa",
-      "Topplistan är aldrig tom: godisfigurer fyller ut den och flyttar på sig för varje riktig spelare",
-      "Spelet säger till om namnet du väljer redan finns på topplistan"
+      "Bakåt i spelet tar dig till menyn i stället för att lämna sidan",
+      "Stäng-knapp i menyn och helskärm på mobilen",
+      "Typsnittet finns i spelet, så inget hämtas från andra webbplatser"
     ]
   },
   {
@@ -63,12 +63,14 @@
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "1.4",
+    "version": "1.5",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/pingo/",
     "changes": [
-      "Dela ditt resultat efter rundan: poäng, medalj, fiskar och nära ögat, med en länk som utmanar kompisarna",
-      "Delade länkar till Dagens bana öppnar dagens bana direkt"
+      "Bakåt i spelet tar dig till menyn i stället för att lämna sidan",
+      "Stäng-knapp i menyn och helskärm på mobilen",
+      "Typsnittet finns i spelet, så inget hämtas från andra webbplatser",
+      "Spelet pausas när du byter app och fortsätter när du trycker"
     ]
   }
 ]
