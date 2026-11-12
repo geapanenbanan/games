@@ -63,14 +63,11 @@
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "1.5",
+    "version": "1.5.1",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/pingo/",
     "changes": [
-      "Bakåt i spelet tar dig till menyn i stället för att lämna sidan",
-      "Stäng-knapp i menyn och helskärm på mobilen",
-      "Typsnittet finns i spelet, så inget hämtas från andra webbplatser",
-      "Spelet pausas när du byter app och fortsätter när du trycker"
+      "Åtgärdat: i Firefox kunde månen och snöflingor ibland blinka till som rektanglar"
     ]
   },
   {
