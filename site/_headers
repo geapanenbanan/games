@@ -5,3 +5,6 @@
 
 /games.json
   Cache-Control: no-cache
+
+/play/*
+  Cache-Control: no-cache
