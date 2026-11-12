@@ -63,15 +63,11 @@
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "1.1",
+    "version": "1.1.1",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/pingo/",
     "changes": [
-      "Dagens bana: samma bana för alla, med egen topplista varje dag",
-      "Medaljer vid 10, 25, 50 och 100 poäng som låser upp fyra nya pingviner: Tomte, Cool, Guld och Kosmos",
-      "Fiskar ger +2 och \"Nära ögat!\" ger +1",
-      "Rörliga pelare efter 20 pelare, och himlen skiftar från skymning till polarstorm",
-      "Meny, snabbare omstart och vibration vid krasch (Android)"
+      "Åtgärdat: bakgrunden kunde flimra i Firefox efter några rundor"
     ]
   }
 ]
