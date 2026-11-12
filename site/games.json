@@ -72,5 +72,27 @@
       "Typsnittet finns i spelet, så inget hämtas från andra webbplatser",
       "Spelet pausas när du byter app och fortsätter när du trycker"
     ]
+  },
+  {
+    "id": "echo-trace",
+    "title": "Echo Trace",
+    "color": "#159AB0",
+    "tagline": "Smygspel i totalt mörker. Pinga för att se, men vakterna hör allt.",
+    "description": [
+      "Allt är svart. Tryck för ett tyst ping som lyser upp väggarna nära dig en kort stund, eller håll och släpp för ett högt ping som visar en stor del av banan. Ljudet går runt hörn men aldrig genom väggar.",
+      "Blinda vakter patrullerar i mörkret. De ser dig inte, men varje ping som når dem får dem att springa dit ljudet kom ifrån. Undvik spikfällorna, följ portalens surr och ta dig igenom fyra nivåer med så få ping som möjligt. Spelas direkt i webbläsaren, bäst med hörlurar."
+    ],
+    "status": "Klart att spela",
+    "platforms": [
+      "Webbläsare (mobil och dator)"
+    ],
+    "version": "1.0",
+    "download": null,
+    "webPlay": "https://games.geapanenbanan.com/play/echo-trace/",
+    "changes": [
+      "Första versionen: tysta och höga ping, blinda vakter som jagar ljudet, spikfällor och fyra nivåer",
+      "Allt ljud skapas i spelet: sonar, fotsteg i stereo, larm och portalens surr",
+      "Färre ping är bättre: par per nivå, ditt rekord sparas och du får en rang när du klarat alla nivåer"
+    ]
   }
 ]
