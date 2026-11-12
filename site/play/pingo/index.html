@@ -13,7 +13,7 @@
   canvas#c{display:block;width:100vw;height:100vh;height:100dvh}
   [hidden]{display:none!important}
   .ov{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;background:rgba(10,8,30,.45);z-index:3;overflow-y:auto}
-  .card{background:rgba(22,18,48,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:22px 20px 18px;max-width:340px;width:100%;box-sizing:border-box;box-shadow:0 24px 60px rgba(0,0,0,.45);color:#e9e6ff;text-align:center;animation:pop .35s cubic-bezier(.2,1.15,.4,1);margin:auto}
+  .card{background:rgba(22,18,48,.95);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:22px 20px 18px;max-width:340px;width:100%;box-sizing:border-box;box-shadow:0 24px 60px rgba(0,0,0,.45);color:#e9e6ff;text-align:center;animation:pop .35s cubic-bezier(.2,1.15,.4,1);margin:auto}
   @keyframes pop{from{transform:scale(.85);opacity:0}to{transform:none;opacity:1}}
   h1{margin:0 0 4px;font-weight:900;font-size:34px;letter-spacing:1px;color:#bff0ff}
   .who{margin:0 0 14px;font-size:14px;opacity:.8}
@@ -36,7 +36,7 @@
   #nm label{display:block;font-weight:900;font-size:24px;margin-bottom:14px;color:#bff0ff}
   #nm input{width:100%;box-sizing:border-box;font:500 18px 'Rubik',system-ui,sans-serif;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;text-align:center;outline:none;-webkit-user-select:text;user-select:text}
   #nm input:focus{border-color:#9fd8ff}
-  #mbtn{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:12px;z-index:2;font:700 13px 'Rubik',system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase;color:#fff;background:rgba(15,12,35,.62);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 16px;cursor:pointer}
+  #mbtn{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:12px;z-index:2;font:700 13px 'Rubik',system-ui,sans-serif;letter-spacing:1px;text-transform:uppercase;color:#fff;background:rgba(15,12,35,.82);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 16px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -105,9 +105,11 @@ function resize(){
   dpr = Math.min(window.devicePixelRatio || 1, 2);
   const h = cv.clientHeight || innerHeight, w = cv.clientWidth || innerWidth;
   S = h / VH; W = w / S;
-  cv.width = w * dpr; cv.height = h * dpr;
+  const pw = Math.round(w * dpr), ph = Math.round(h * dpr);
+  if (cv.width !== pw || cv.height !== ph){ cv.width = pw; cv.height = ph; }
   ctx.setTransform(S*dpr,0,0,S*dpr,0,0);
   if (state !== 'play' && state !== 'dead') bird.x = W * 0.3;
+  if (typeof draw === 'function' && pillarG) draw();
 }
 addEventListener('resize', resize);
 
@@ -239,7 +241,7 @@ function update(dt){
   flash = Math.max(0, flash - dt*3);
   shake = Math.max(0, shake - dt*40);
   bird.wing = Math.max(0, bird.wing - dt*5);
-  const target = (state === 'play' || state === 'dead') ? stageFor(passed) : 1;
+  const target = state === 'menu' ? 1 : stageFor(passed);
   skyF += Math.sign(target - skyF) * Math.min(Math.abs(target - skyF), dt*0.6);
   const storm = Math.max(0, skyF - 3);
   const sp = state === 'dead' ? 0 : speed();
@@ -326,11 +328,14 @@ function pal(){
 // ---------- ritning ----------
 function rr(c,x,y,w,h,r){ c.beginPath(); c.roundRect ? c.roundRect(x,y,w,h,r) : c.rect(x,y,w,h); }
 
+let bgG = null, bgKey = '';
 function drawBg(){
-  const P = pal();
-  const g = ctx.createLinearGradient(0,0,0,VH);
-  g.addColorStop(0,P.a); g.addColorStop(0.6,P.b); g.addColorStop(1,P.c);
-  ctx.fillStyle = g; ctx.fillRect(-20,-20,W+40,VH+40);
+  const P = pal(), key = P.a + P.b + P.c;
+  if (key !== bgKey){
+    bgG = ctx.createLinearGradient(0,0,0,VH);
+    bgG.addColorStop(0,P.a); bgG.addColorStop(0.6,P.b); bgG.addColorStop(1,P.c); bgKey = key;
+  }
+  ctx.fillStyle = bgG; ctx.fillRect(-20,-20,W+40,VH+40);
   if (P.star > 0.01){
     ctx.fillStyle = '#fff';
     for (const s of stars){ ctx.globalAlpha = P.star*(0.5 + 0.5*Math.sin(t*2 + s.p)); ctx.beginPath(); ctx.arc(s.x*W, s.y*VH, s.r, 0, 7); ctx.fill(); }
@@ -352,10 +357,14 @@ function drawBg(){
   ctx.globalAlpha = 1;
 }
 
+function pillarGrad(a, b, c){
+  const g = ctx.createLinearGradient(0,0,72,0);
+  g.addColorStop(0,a); g.addColorStop(0.35,b); g.addColorStop(1,c); return g;
+}
+const pillarG = [pillarGrad('#7cc7ee','#e6f7ff','#4ea5d6'), pillarGrad('#9fb4f0','#eef0ff','#6f7fd6')];
 function drawPillar(x, y, w, h, top, moving){
-  const g = ctx.createLinearGradient(x,0,x+w,0);
-  if (moving){ g.addColorStop(0,'#9fb4f0'); g.addColorStop(0.35,'#eef0ff'); g.addColorStop(1,'#6f7fd6'); }
-  else { g.addColorStop(0,'#7cc7ee'); g.addColorStop(0.35,'#e6f7ff'); g.addColorStop(1,'#4ea5d6'); }
+  ctx.save(); ctx.translate(x, 0); x = 0;
+  const g = pillarG[moving ? 1 : 0];
   ctx.fillStyle = g; rr(ctx, x, y, w, h, 6); ctx.fill();
   ctx.strokeStyle = 'rgba(20,60,100,.5)'; ctx.lineWidth = 2; ctx.stroke();
   const capY = top ? y + h - 22 : y;
@@ -369,6 +378,7 @@ function drawPillar(x, y, w, h, top, moving){
   } else {
     ctx.fillStyle = '#fff'; rr(ctx, x-6, capY-5, w+12, 9, 5); ctx.fill();
   }
+  ctx.restore();
 }
 
 function drawFish(f){
@@ -580,7 +590,7 @@ function loop(now){
   update(dt); draw();
   requestAnimationFrame(loop);
 }
-resize(); skyF = 1;
+skyF = 1; resize();
 if (playerName) showMenu(); else askName(null);
 requestAnimationFrame(loop);
 })();
