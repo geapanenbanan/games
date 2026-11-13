@@ -92,5 +92,28 @@
       "Allt ljud skapas i spelet: sonar, fotsteg i stereo, larm och portalens surr",
       "Färre ping är bättre: par per nivå, ditt rekord sparas och du får en rang när du klarat alla nivåer"
     ]
+  },
+  {
+    "id": "return-of-the-frogs",
+    "title": "The Return of the Frogs",
+    "color": "#3FA52B",
+    "tagline": "Grodornas återkomst: slunga grodor och ta tillbaka dammen från hägrarna.",
+    "description": [
+      "Hägrarna har tagit över dammen och byggt fästen av trä, is och sten. Dra bakåt i vass-slungan, sikta och släpp – och riv fästena så att varenda häger åker ut.",
+      "Sex grodor med egna förmågor som du aktiverar med ett tryck i luften: raketfart, grodrom som blir tre grodyngel, en tunga som river ner block, giftmoln och magplask. 20 banor med upp till tre stjärnor, en ny utmaning varje dag och ett oändligt läge med allt svårare vågor. Spelas direkt i webbläsaren, bäst i liggande läge."
+    ],
+    "status": "Tidig testversion",
+    "platforms": [
+      "Webbläsare (mobil och dator)"
+    ],
+    "version": "0.1",
+    "download": null,
+    "webPlay": "https://games.geapanenbanan.com/play/return-of-the-frogs/",
+    "changes": [
+      "Första testversionen: slunga grodor mot hägrarnas fästen med riktig fysik",
+      "Sex grodor: lövgroda, raketgroda, grodrom, tunggroda, giftgroda och oxgroda",
+      "20 banor med stjärnor, dagens utmaning med dagar i rad och ett oändligt läge (låses upp efter bana 5)",
+      "Bakåt tar dig till menyn, helskärm på mobilen och spelet pausas när du byter app"
+    ]
   }
 ]
