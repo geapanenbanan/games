@@ -106,14 +106,15 @@
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "0.1",
+    "version": "0.2",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/return-of-the-frogs/",
     "changes": [
-      "Första testversionen: slunga grodor mot hägrarnas fästen med riktig fysik",
-      "Sex grodor: lövgroda, raketgroda, grodrom, tunggroda, giftgroda och oxgroda",
-      "20 banor med stjärnor, dagens utmaning med dagar i rad och ett oändligt läge (låses upp efter bana 5)",
-      "Bakåt tar dig till menyn, helskärm på mobilen och spelet pausas när du byter app"
+      "Åtgärdat: hägrar och block kunde bli hängande i luften när det som höll upp dem försvann",
+      "Hägrarna tål mindre: de dör av fall, hårda smällar och när något tungt trycker ner dem",
+      "Dynamisk zoom: kameran zoomar in på små banor, ut på stora och följer grodan högre upp i luften",
+      "Ögat (👁) visar nu hela banan och berättar vad det gör",
+      "Slungan känns likadan oavsett zoom, och stående läge visar mer av banan"
     ]
   }
 ]
