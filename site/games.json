@@ -106,15 +106,12 @@
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "0.2",
+    "version": "0.2.1",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/return-of-the-frogs/",
     "changes": [
-      "Åtgärdat: hägrar och block kunde bli hängande i luften när det som höll upp dem försvann",
-      "Hägrarna tål mindre: de dör av fall, hårda smällar och när något tungt trycker ner dem",
-      "Dynamisk zoom: kameran zoomar in på små banor, ut på stora och följer grodan högre upp i luften",
-      "Ögat (👁) visar nu hela banan och berättar vad det gör",
-      "Slungan känns likadan oavsett zoom, och stående läge visar mer av banan"
+      "Bana 8 är lättare: nedersta raden är trä och mittenraden sten som rasar ner, och du får en fjärde groda",
+      "Sten tål mindre (ungefär 30 % mindre) men är lika tung som förut"
     ]
   }
 ]
