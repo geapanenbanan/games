@@ -113,5 +113,27 @@
       "Bana 8 är lättare: nedersta raden är trä och mittenraden sten som rasar ner, och du får en fjärde groda",
       "Sten tål mindre (ungefär 30 % mindre) men är lika tung som förut"
     ]
+  },
+  {
+    "id": "kubflykt",
+    "title": "Kubflykt – Jessica edition",
+    "color": "#E0559A",
+    "tagline": "Skjut ut kuberna i pilens riktning utan att krocka. Inga reklamfilmer, obegränsade försök.",
+    "description": [
+      "Tryck på en kub så åker den iväg i pilens riktning. Står en annan kub i vägen blir det krock och du tappar ett hjärta. Snurra figuren med fingret och hitta rätt ordning tills alla kuber är borta.",
+      "21 handgjorda banor (hjärtan, pyramider, klot och ett J som i Jessica) och sedan oändligt många till. Snabba kuber i rad ger combo och sköldar, guldkuben ger extra mynt och mynten köper nya teman. Ny utmaning varje dag. Spelas direkt i webbläsaren, inget att installera."
+    ],
+    "status": "Klart att spela",
+    "platforms": [
+      "Webbläsare (mobil och dator)"
+    ],
+    "version": "1.0",
+    "download": null,
+    "webPlay": "https://games.geapanenbanan.com/play/kubflykt/",
+    "changes": [
+      "Första versionen: 21 handgjorda banor och oändligt många slumpade, alla garanterat lösbara",
+      "Combo, sköldar, guldkub, tips och tre stjärnor per bana",
+      "Dagens utmaning och sex teman att köpa för mynten"
+    ]
   }
 ]
