@@ -63,15 +63,11 @@
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "1.6",
+    "version": "1.7",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/pingo/",
     "changes": [
-      "Tre nya pingviner inspirerade av Rosty & Frosty: Rosty vid 150 poäng, Frosty vid 200 och Rosty & Frosty vid 250, med spår av gnistor och frost",
-      "Nya medaljer: Rost vid 150 och Frost vid 200",
-      "Efter 40 pelare fortsätter det att bli svårare, och efter 100 väntar Rosty & Frosty-zonen där eld möter is",
-      "Dagar i rad: spelet räknar hur många dagar i rad du spelat Dagens bana",
-      "Veckans topplista som börjar om varje måndag, bredvid alla tiders lista"
+      "När du låser upp en ny pingvin visas den i stort format med ljusstrålar och fanfar: eld för Rosty, is för Frosty, båda för Rosty & Frosty och konfetti för de andra. Välj Använd nu för att byta direkt"
     ]
   },
   {
