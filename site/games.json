@@ -107,14 +107,13 @@
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "0.3",
+    "version": "0.4",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/return-of-the-frogs/",
     "changes": [
-      "Smällarna känns: skärmskak, dammoln och gnistor vid hårda träffar, och världen fryser ett ögonblick när en häger åker ut",
-      "Hägrarna tappar fjädrar, kameran zoomar in på den sista, och oxgrodans magplask ger en stötvåg",
-      "Kedjebonus när mycket rasar på en gång, en sena som dallrar efter skottet och en groda som kläms ihop när du drar",
-      "Poängtexterna poppar upp och slutpoängen räknas upp"
+      "Spelet finns på engelska, och på svenska i svenska webbläsare",
+      "Tangentbord: Enter spelar, Space använder grodans förmåga, Esc pausar, R börjar om och V visar hela banan",
+      "Lobbyn förklarar kort hur man spelar, och på mobil visas bara pekstyrningen"
     ]
   },
   {
