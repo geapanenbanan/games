@@ -107,13 +107,12 @@
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "0.4",
+    "version": "0.5",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/return-of-the-frogs/",
     "changes": [
-      "Spelet finns på engelska, och på svenska i svenska webbläsare",
-      "Tangentbord: Enter spelar, Space använder grodans förmåga, Esc pausar, R börjar om och V visar hela banan",
-      "Lobbyn förklarar kort hur man spelar, och på mobil visas bara pekstyrningen"
+      "Topplista för dagens utmaning, oändligt läge (alla tider och veckan) och alla banor ihop",
+      "Namnet är frivilligt: välj det efter en runda så skickas poängen, även de du redan spelat in"
     ]
   },
   {
