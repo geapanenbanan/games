@@ -107,12 +107,14 @@
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "0.2.1",
+    "version": "0.3",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/return-of-the-frogs/",
     "changes": [
-      "Bana 8 är lättare: nedersta raden är trä och mittenraden sten som rasar ner, och du får en fjärde groda",
-      "Sten tål mindre (ungefär 30 % mindre) men är lika tung som förut"
+      "Smällarna känns: skärmskak, dammoln och gnistor vid hårda träffar, och världen fryser ett ögonblick när en häger åker ut",
+      "Hägrarna tappar fjädrar, kameran zoomar in på den sista, och oxgrodans magplask ger en stötvåg",
+      "Kedjebonus när mycket rasar på en gång, en sena som dallrar efter skottet och en groda som kläms ihop när du drar",
+      "Poängtexterna poppar upp och slutpoängen räknas upp"
     ]
   },
   {
