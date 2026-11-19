@@ -107,12 +107,13 @@
     "platforms": [
       "Webbläsare (mobil och dator)"
     ],
-    "version": "0.5",
+    "version": "0.6",
     "download": null,
     "webPlay": "https://games.geapanenbanan.com/play/return-of-the-frogs/",
     "changes": [
-      "Topplista för dagens utmaning, oändligt läge (alla tider och veckan) och alla banor ihop",
-      "Namnet är frivilligt: välj det efter en runda så skickas poängen, även de du redan spelat in"
+      "Nya block: trä med ådring, kvistar och spikar, murad sten, blank is och en TNT-låda med glödande stubin",
+      "Grodorna har fått volym, blinkar, skuttar i kön och sträcks ut av farten",
+      "Hägrarna blir rädda när en groda kommer flygande och ser stjärnor efter en smäll"
     ]
   },
   {
